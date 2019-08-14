@@ -49,6 +49,10 @@ PACKAGE_INSTALL_REQUIRES = [
     # 'package',
     # 'otherpackage>=1,<2'
     'exceldriver',
+    'processfiles',
+    'pypiwin32',
+    'openpyxl',
+    'pandas'
 
 ]
 
@@ -59,6 +63,10 @@ PACKAGE_INSTALL_REQUIRES = [
 DOCS_OTHER_MOCK_IMPORTS = [
     # Include the names of the packages as they would be imported, e.g.
     # 'package',
+    'pythoncom',
+    'win32com',
+    'pywintypes',
+    'winreg'
 ]
 
 PACKAGE_URLS = {

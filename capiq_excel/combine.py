@@ -5,8 +5,8 @@ import math
 
 import pandas as pd
 
-from tools.ext_pandas import _get_outpath_and_df_of_headers, _append_df_to_csv, append_csv_to_csv
-from tracker.files import FileProcessTracker
+from capiq_excel.tools.ext_pandas import _get_outpath_and_df_of_headers, _append_df_to_csv, append_csv_to_csv
+from processfiles.files import FileProcessTracker
 
 
 def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
@@ -73,13 +73,3 @@ def _capiq_filepath_to_iq_id_and_date(filepath):
     pattern = re.compile(r'(IQ\d+) ([\d-]+)([.]xlsx)')
     match = pattern.match(filename)
     return match.group(1), match.group(2)
-
-if __name__ == '__main__':
-    from dataconfig.paths import capiq_path, big_capiq_path
-
-    # infolder = big_capiq_path(r'inprogress')
-    infolder = capiq_path('acquired-delisted2')
-    # outpath = capiq_path('capiq insider holdings data.csv')
-    outpath = capiq_path('third pull delisted capiq data.csv')
-
-    combine_all_capiq_xlsx(infolder, outpath, restart=True)
