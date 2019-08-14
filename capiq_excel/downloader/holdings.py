@@ -6,10 +6,10 @@ if __name__ == '__main__':
     import os
     import shutil
 
-    from capiq.workbook.create import create_all_xlsx_with_holdings_commands
+    from capiq_excel.workbook.create import create_all_xlsx_with_holdings_commands
     from dataconfig.paths import big_capiq_path, capiq_path
-    from capiq.downloader.tools import populate_all_files_in_folder, _get_company_id_list
-    from capiq.variables.holdings import insider_variables, institutional_variables, date_strs
+    from capiq_excel.downloader.tools import populate_all_files_in_folder, _get_company_id_list
+    from capiq_excel.variables.holdings import insider_variables, institutional_variables, date_strs
 
 
     parser = argparse.ArgumentParser(description='Create workbooks and download holdings data from capital IQ - holdings data')

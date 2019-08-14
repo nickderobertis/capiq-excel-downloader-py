@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     from dataconfig.paths import capiq_path
     from dataconfig.variables import variable_display_names as vd
-    from capiq.holdings.config import insider_keep_cols, institutional_keep_cols
+    from capiq_excel.holdings.config import insider_keep_cols, institutional_keep_cols
 
     parser = argparse.ArgumentParser(description='Consolidate individual holdings into a number of shares per id per time period')
     parser.add_argument('-i', '--insider', default=False, action='store_true')
