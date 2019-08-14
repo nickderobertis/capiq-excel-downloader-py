@@ -4,7 +4,7 @@ import warnings
 from capiq.downloader.timeout import TimeoutWrapper
 from capiq.fileops import get_path_of_failed_folder_add_if_necessary, move_file_to_failed_folder, get_path_of_additional_failed_folder_add_if_necessary
 from capiq.workbook.populate import populate_capiq_for_file
-from excel.tools import _start_excel_with_addins_and_attach, _get_excel_running_workbook, _restart_excel_with_addins_and_attach, NoExcelWorkbookException
+from exceldriver.tools import _start_excel_with_addins_and_attach, _get_excel_running_workbook, _restart_excel_with_addins_and_attach, NoExcelWorkbookException
 from tracker.files import FileProcessTracker
 
 

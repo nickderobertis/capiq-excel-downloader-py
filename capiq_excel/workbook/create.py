@@ -5,7 +5,7 @@ import pandas as pd
 import math
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-from workbook.create import _get_workbook_and_worksheet
+from exceldriver.workbook.create import _get_workbook_and_worksheet
 from .commands import financial_data_command, id_command, name_command, holdings_command
 
 def create_all_xlsx_with_financials_commands(folder, company_id_list, data_items_dict, **financials_kwargs):

@@ -5,7 +5,7 @@ import traceback, sys
 
 from .wait import _wait_for_capiq_result
 from ..exceptions import WorkbookClosedException, CapitalIQInactiveException
-from excel.tools import _restart_excel_with_addins_and_attach
+from exceldriver.tools import _restart_excel_with_addins_and_attach
 
 def populate_capiq_for_file(filepath, excel, retries_remaining=3, close_workbook=False, index=0):
     """
