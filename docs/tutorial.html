@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Getting started with py_qs_example &#8212; quickstart-example 0.1.0 documentation</title>
+    <title>Getting started with capiq_excel &#8212; capiq_excel 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="py_qs_example" href="api/modules.html" />
-    <link rel="prev" title="Welcome to Quick Start Example documentation!" href="index.html" />
+    <link rel="next" title="capiq_excel" href="api/modules.html" />
+    <link rel="prev" title="Welcome to Capital IQ Python Excel Downloader Documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,23 +32,90 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="getting-started-with-py-qs-example">
-<h1>Getting started with py_qs_example<a class="headerlink" href="#getting-started-with-py-qs-example" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="getting-started-with-capiq-excel">
+<span id="tutorial"></span><h1>Getting started with capiq_excel<a class="headerlink" href="#getting-started-with-capiq-excel" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<p>Install via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">py_qs_example</span>
+<p>Install this package via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">capiq_excel</span>
 </pre></div>
 </div>
+<p>You must also be running Windows, have Excel installed,
+and have the Capital IQ plugin for Excel installed.</p>
+<p>Ensure that when you go to the S&amp;P Capital IQ tab, that the buttons are not grayed
+out. If they are, you have to go
+to the tab and click the “Reconnect” button. Once you are
+logged in, all the buttons should be highlighted on the tab. Then you can
+close Excel and begin using <code class="code docutils literal notranslate"><span class="pre">capiq_excel</span></code>.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This package downloads the data in three main steps:</p>
+<p>1. Creates an XLSX workbook for each company containing the Excel function
+for the Capital IQ Excel plugin to download the Capital IQ data</p>
+<p>2. Opens each workbook, one by one, allowing the data to populate, then
+closing and saving the workbook.</p>
+<p>3. Reads the data from all the generated workbooks and combines into
+one CSV file.</p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Some highlighted functionality from my module.</p>
+<p>There are four main functions in the package.
+<a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_financials" title="capiq_excel.main.download_financials"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_financials()</span></code></a> is the main function, which
+is just a wrapper to call the other three main functions which complete
+the three steps described above: <a class="reference internal" href="api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_all_xlsx_with_financials_commands" title="capiq_excel.workbook.create.create_all_xlsx_with_financials_commands"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_all_xlsx_with_financials_commands()</span></code></a>,
+<a class="reference internal" href="api/capiq_excel.downloader.html#capiq_excel.downloader.tools.populate_all_files_in_folder" title="capiq_excel.downloader.tools.populate_all_files_in_folder"><code class="xref py py-func docutils literal notranslate"><span class="pre">populate_all_files_in_folder()</span></code></a>, and <a class="reference internal" href="api/capiq_excel.html#capiq_excel.combine.combine_all_capiq_xlsx" title="capiq_excel.combine.combine_all_capiq_xlsx"><code class="xref py py-func docutils literal notranslate"><span class="pre">combine_all_capiq_xlsx()</span></code></a>.</p>
 <p>This is a simple example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">py_qs_example</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capiq_excel</span> <span class="k">import</span> <span class="n">download_financials</span>
 
-<span class="n">obj</span> <span class="o">=</span> <span class="n">py_qs_example</span><span class="o">.</span><span class="n">mymodule</span><span class="o">.</span><span class="n">ExampleClass</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">)</span>
+<span class="n">download_datastream</span><span class="p">(</span>
+    <span class="s1">&#39;output_folder&#39;</span><span class="p">,</span>
+    <span class="p">[</span><span class="s1">&#39;IQ21835&#39;</span><span class="p">,</span> <span class="s1">&#39;IQ24937&#39;</span><span class="p">],</span>  <span class="c1"># Capital IQ ids</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;IQ_TOTAL_REV&#39;</span><span class="p">:</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;IQ_COST_REV&#39;</span><span class="p">:</span> <span class="s1">&#39;COGS&#39;</span>
+    <span class="p">},</span>  <span class="c1"># Variable names from Capital IQ, and desired names in output data</span>
+    <span class="n">outpath</span><span class="o">=</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span>
+    <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span>
+    <span class="n">num_periods</span><span class="o">=</span><span class="mi">6</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You may see errors relating to calling Excel and that Excel has been terminated.
+There is retry logic built into the package as Excel does not respond very
+consistently in this way, so Excel may be terminated and restarted many
+times in the process of downloading.</p>
+<p>A <cite>failed</cite> folder will be created and any XLSX that were unable
+to pull data after several retries will be moved here so that they can be
+re-run later.</p>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>Hopefully the <a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_financials" title="capiq_excel.main.download_financials"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_financials()</span></code></a> function works end-to-end. But
+the second step where the files populated may cause Excel to fail. There is
+some logic in the package to keep restarting Excel, but this may eventually
+fail as well. If this happens, get your Excel working manually again (may
+require a restart or re-enabling the Eikon plugin), then you can run
+<a class="reference internal" href="api/capiq_excel.downloader.html#capiq_excel.downloader.tools.populate_all_files_in_folder" title="capiq_excel.downloader.tools.populate_all_files_in_folder"><code class="xref py py-func docutils literal notranslate"><span class="pre">populate_all_files_in_folder()</span></code></a> while passing <cite>restart=False</cite> to
+continue where it left off. Repeat this as many times as needed, then at
+the end you can run <a class="reference internal" href="api/capiq_excel.html#capiq_excel.combine.combine_all_capiq_xlsx" title="capiq_excel.combine.combine_all_capiq_xlsx"><code class="xref py py-func docutils literal notranslate"><span class="pre">combine_all_capiq_xlsx()</span></code></a>.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capiq_excel</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">populate_all_files_in_folder</span><span class="p">,</span>
+    <span class="n">combine_all_capiq_xlsx</span>
+<span class="p">)</span>
+
+<span class="c1"># Run as many times as needed, fixing Excel in between</span>
+<span class="n">populate_all_files_in_folder</span><span class="p">(</span>
+    <span class="s1">&#39;output_folder&#39;</span><span class="p">,</span>
+    <span class="n">restart</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Once populate can actually finish, then run this</span>
+<span class="n">combine_all_capiq_xlsx</span><span class="p">(</span>
+    <span class="s1">&#39;output_folder&#39;</span><span class="p">,</span>
+    <span class="n">outpath</span><span class="o">=</span><span class="s1">&#39;data.csv&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -63,21 +130,23 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started with py_qs_example</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started with capiq_excel</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">py_qs_example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">capiq_excel</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Quick Start Example documentation!</a></li>
-      <li>Next: <a href="api/modules.html" title="next chapter">py_qs_example</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Capital IQ Python Excel Downloader Documentation!</a></li>
+      <li>Next: <a href="api/modules.html" title="next chapter">capiq_excel</a></li>
   </ul></li>
 </ul>
 </div>

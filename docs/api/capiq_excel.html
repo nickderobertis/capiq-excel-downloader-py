@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>capiq_excel package &#8212; capiq_excel 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="capiq_excel.downloader package" href="capiq_excel.downloader.html" />
+    <link rel="prev" title="capiq_excel" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="capiq-excel-package">
+<h1>capiq_excel package<a class="headerlink" href="#capiq-excel-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="capiq_excel.downloader.html">capiq_excel.downloader package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.downloader.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.downloader.html#module-capiq_excel.downloader.timeout">capiq_excel.downloader.timeout module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.downloader.html#module-capiq_excel.downloader.tools">capiq_excel.downloader.tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.downloader.html#module-capiq_excel.downloader">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="capiq_excel.tools.html">capiq_excel.tools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.tools.html#module-capiq_excel.tools.ext_pandas">capiq_excel.tools.ext_pandas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.tools.html#module-capiq_excel.tools">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="capiq_excel.workbook.html">capiq_excel.workbook package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#module-capiq_excel.workbook.commands">capiq_excel.workbook.commands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#module-capiq_excel.workbook.create">capiq_excel.workbook.create module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#module-capiq_excel.workbook.populate">capiq_excel.workbook.populate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#module-capiq_excel.workbook.wait">capiq_excel.workbook.wait module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capiq_excel.workbook.html#module-capiq_excel.workbook">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-capiq_excel.addin">
+<span id="capiq-excel-addin-module"></span><h2>capiq_excel.addin module<a class="headerlink" href="#module-capiq_excel.addin" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.addin.load_capiq">
+<code class="sig-prename descclassname">capiq_excel.addin.</code><code class="sig-name descname">load_capiq</code><span class="sig-paren">(</span><em class="sig-param">excel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/addin.html#load_capiq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.addin.load_capiq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.combine">
+<span id="capiq-excel-combine-module"></span><h2>capiq_excel.combine module<a class="headerlink" href="#module-capiq_excel.combine" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.combine.combine_all_capiq_xlsx">
+<code class="sig-prename descclassname">capiq_excel.combine.</code><code class="sig-name descname">combine_all_capiq_xlsx</code><span class="sig-paren">(</span><em class="sig-param">infolder</em>, <em class="sig-param">outpath</em>, <em class="sig-param">restart=True</em>, <em class="sig-param">num_parts=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/combine.html#combine_all_capiq_xlsx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.combine.combine_all_capiq_xlsx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.exceptions">
+<span id="capiq-excel-exceptions-module"></span><h2>capiq_excel.exceptions module<a class="headerlink" href="#module-capiq_excel.exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="capiq_excel.exceptions.CapitalIQInactiveException">
+<em class="property">exception </em><code class="sig-prename descclassname">capiq_excel.exceptions.</code><code class="sig-name descname">CapitalIQInactiveException</code><a class="reference internal" href="../_modules/capiq_excel/exceptions.html#CapitalIQInactiveException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.exceptions.CapitalIQInactiveException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="capiq_excel.exceptions.WorkbookClosedException">
+<em class="property">exception </em><code class="sig-prename descclassname">capiq_excel.exceptions.</code><code class="sig-name descname">WorkbookClosedException</code><a class="reference internal" href="../_modules/capiq_excel/exceptions.html#WorkbookClosedException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.exceptions.WorkbookClosedException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.fileops">
+<span id="capiq-excel-fileops-module"></span><h2>capiq_excel.fileops module<a class="headerlink" href="#module-capiq_excel.fileops" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.fileops.get_path_of_additional_failed_folder_add_if_necessary">
+<code class="sig-prename descclassname">capiq_excel.fileops.</code><code class="sig-name descname">get_path_of_additional_failed_folder_add_if_necessary</code><span class="sig-paren">(</span><em class="sig-param">orig_folder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/fileops.html#get_path_of_additional_failed_folder_add_if_necessary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.fileops.get_path_of_additional_failed_folder_add_if_necessary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.fileops.get_path_of_failed_folder_add_if_necessary">
+<code class="sig-prename descclassname">capiq_excel.fileops.</code><code class="sig-name descname">get_path_of_failed_folder_add_if_necessary</code><span class="sig-paren">(</span><em class="sig-param">orig_folder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/fileops.html#get_path_of_failed_folder_add_if_necessary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.fileops.get_path_of_failed_folder_add_if_necessary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.fileops.move_file_to_failed_folder">
+<code class="sig-prename descclassname">capiq_excel.fileops.</code><code class="sig-name descname">move_file_to_failed_folder</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">failed_folder</em>, <em class="sig-param">retries_remaining=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/fileops.html#move_file_to_failed_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.fileops.move_file_to_failed_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.ids">
+<span id="capiq-excel-ids-module"></span><h2>capiq_excel.ids module<a class="headerlink" href="#module-capiq_excel.ids" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.ids.combine_all_capiq_ids_xlsx">
+<code class="sig-prename descclassname">capiq_excel.ids.</code><code class="sig-name descname">combine_all_capiq_ids_xlsx</code><span class="sig-paren">(</span><em class="sig-param">infolder</em>, <em class="sig-param">outpath</em>, <em class="sig-param">restart=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/ids.html#combine_all_capiq_ids_xlsx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.ids.combine_all_capiq_ids_xlsx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.ids.populate_all_ids_in_folder">
+<code class="sig-prename descclassname">capiq_excel.ids.</code><code class="sig-name descname">populate_all_ids_in_folder</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">restart=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/ids.html#populate_all_ids_in_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.ids.populate_all_ids_in_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.main">
+<span id="capiq-excel-main-module"></span><h2>capiq_excel.main module<a class="headerlink" href="#module-capiq_excel.main" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.main.download_financials">
+<code class="sig-prename descclassname">capiq_excel.main.</code><code class="sig-name descname">download_financials</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_ids</em>, <em class="sig-param">data_items</em>, <em class="sig-param">outpath='combined.csv'</em>, <em class="sig-param">restart=True</em>, <em class="sig-param">timeout=240</em>, <em class="sig-param">run_failed=False</em>, <em class="sig-param">**financial_command_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/main.html#download_financials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.main.download_financials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads financial data from Capital IQ given the capital IQ ids and chosen variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Location for in-process files</p></li>
+<li><p><strong>company_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Capital IQ ids for companies, e.g. [‘IQ4564656’, ‘IQ45643215’]</p></li>
+<li><p><strong>data_items</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Data items to pull for companies. keys are variable names in capital iq, values are what the
+names should be in the output data. e.g. {‘IQ_TOTAL_REVENUE’: ‘Sales’}</p></li>
+<li><p><strong>outpath</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path to csv where final data should be outputted</p></li>
+<li><p><strong>restart</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If not the first run, start over from the beginning. Set to False to start from where left off</p></li>
+<li><p><strong>timeout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Time to wait for file to be populated before considering it failed</p></li>
+<li><p><strong>run_failed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Should only be set to True on a second or later run. Will target the failed files instead
+of the main files if True is passed.</p></li>
+<li><p><strong>financial_command_kwargs</strong> – kwargs for financial_data_command</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-capiq_excel" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting started with capiq_excel</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">capiq_excel</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">capiq_excel package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="capiq_excel.downloader.html">capiq_excel.downloader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="capiq_excel.tools.html">capiq_excel.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="capiq_excel.workbook.html">capiq_excel.workbook package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.addin">capiq_excel.addin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.combine">capiq_excel.combine module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.exceptions">capiq_excel.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.fileops">capiq_excel.fileops module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.ids">capiq_excel.ids module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel.main">capiq_excel.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-capiq_excel">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">capiq_excel</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">capiq_excel</a></li>
+      <li>Next: <a href="capiq_excel.downloader.html" title="next chapter">capiq_excel.downloader package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Nick DeRobertis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/capiq_excel.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,7 +1,7 @@
-py_qs_example
-=============
+capiq_excel
+===========
 
 .. toctree::
    :maxdepth: 4
 
-   py_qs_example
+   capiq_excel

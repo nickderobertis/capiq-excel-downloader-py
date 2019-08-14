@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>capiq_excel.workbook.populate &#8212; capiq_excel 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for capiq_excel.workbook.populate</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">win32com.client</span> <span class="k">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">pywintypes</span> <span class="k">import</span> <span class="n">com_error</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">.wait</span> <span class="k">import</span> <span class="n">_wait_for_capiq_result</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">WorkbookClosedException</span><span class="p">,</span> <span class="n">CapitalIQInactiveException</span>
+<span class="kn">from</span> <span class="nn">exceldriver.tools</span> <span class="k">import</span> <span class="n">_restart_excel_with_addins_and_attach</span>
+
+<div class="viewcode-block" id="populate_capiq_for_file"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.populate.populate_capiq_for_file">[docs]</a><span class="k">def</span> <span class="nf">populate_capiq_for_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">excel</span><span class="p">,</span> <span class="n">retries_remaining</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">close_workbook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Private function has main functionality. This is a wrapper to add retries afer com errors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Even if things are going normally, restart every 500 worksheets as there is a memory leak</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">retries_remaining</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">excel</span> <span class="o">=</span> <span class="n">_restart_excel_with_addins_and_attach</span><span class="p">()</span>
+
+    <span class="c1"># Stop retries</span>
+    <span class="k">if</span> <span class="n">retries_remaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fr</span><span class="s1">&#39;ERROR: Could not process </span><span class="si">{filepath}</span><span class="s1">. Skipping and moving to &quot;..</span><span class="se">\f</span><span class="s1">ailed&quot;.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">excel</span><span class="p">,</span> <span class="kc">False</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># If we are retrying, need to close the workbook before trying to populate</span>
+        <span class="k">if</span> <span class="n">close_workbook</span><span class="p">:</span>
+            <span class="n">excel</span><span class="o">.</span><span class="n">CutCopyMode</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">excel</span><span class="o">.</span><span class="n">ActiveWorkbook</span><span class="p">:</span>
+                <span class="n">excel</span><span class="o">.</span><span class="n">ActiveWorkbook</span><span class="o">.</span><span class="n">Close</span><span class="p">(</span><span class="n">SaveChanges</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">_populate_capiq_for_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">excel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">excel</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">com_error</span><span class="p">,</span> <span class="n">WorkbookClosedException</span><span class="p">,</span> <span class="n">CapitalIQInactiveException</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Error </span><span class="si">{e}</span><span class="s1"> populating </span><span class="si">{filepath}</span><span class="s1">. Will wait 30 seconds, restart Excel, and try again.&#39;</span><span class="p">)</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_tb</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">excel</span> <span class="o">=</span> <span class="n">_restart_excel_with_addins_and_attach</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">populate_capiq_for_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">excel</span><span class="p">,</span> <span class="n">retries_remaining</span><span class="o">=</span><span class="n">retries_remaining</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">close_workbook</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">_populate_capiq_for_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">excel</span><span class="p">):</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">Workbooks</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">successful</span> <span class="o">=</span> <span class="n">_wait_for_capiq_result</span><span class="p">(</span><span class="n">excel</span><span class="p">)</span>
+    <span class="n">_copy_paste_values</span><span class="p">(</span><span class="n">excel</span><span class="p">,</span> <span class="n">wb</span><span class="p">)</span>
+    <span class="n">excel</span><span class="o">.</span><span class="n">ActiveWorkbook</span><span class="o">.</span><span class="n">Close</span><span class="p">(</span><span class="n">SaveChanges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">successful</span>
+
+<div class="viewcode-block" id="populate_capiq_ids_for_file"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.populate.populate_capiq_ids_for_file">[docs]</a><span class="k">def</span> <span class="nf">populate_capiq_ids_for_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">excel</span><span class="p">):</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">Workbooks</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">successful</span> <span class="o">=</span> <span class="n">_wait_for_capiq_result</span><span class="p">(</span><span class="n">excel</span><span class="p">)</span>
+    <span class="n">_copy_paste_values</span><span class="p">(</span><span class="n">excel</span><span class="p">,</span> <span class="n">wb</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="s1">&#39;A1:H3000&#39;</span><span class="p">)</span>
+    <span class="n">excel</span><span class="o">.</span><span class="n">ActiveWorkbook</span><span class="o">.</span><span class="n">Close</span><span class="p">(</span><span class="n">SaveChanges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">successful</span></div>
+
+<span class="k">def</span> <span class="nf">_copy_paste_values</span><span class="p">(</span><span class="n">excel</span><span class="p">,</span> <span class="n">wb</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="s1">&#39;A1:ZZ20000&#39;</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">Sheets</span><span class="p">(</span><span class="s1">&#39;Sheet&#39;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="nb">range</span><span class="p">)</span><span class="o">.</span><span class="n">Copy</span><span class="p">()</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="nb">range</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">PasteSpecial</span><span class="p">(</span><span class="n">Paste</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">xlPasteValues</span><span class="p">,</span> <span class="n">Operation</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">xlNone</span><span class="p">)</span>
+    <span class="n">excel</span><span class="o">.</span><span class="n">CutCopyMode</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Getting started with capiq_excel</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">capiq_excel</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Nick DeRobertis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

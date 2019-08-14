@@ -1,0 +1,30 @@
+capiq\_excel.downloader package
+===============================
+
+Submodules
+----------
+
+capiq\_excel.downloader.timeout module
+--------------------------------------
+
+.. automodule:: capiq_excel.downloader.timeout
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.downloader.tools module
+------------------------------------
+
+.. automodule:: capiq_excel.downloader.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: capiq_excel.downloader
+   :members:
+   :undoc-members:
+   :show-inheritance:

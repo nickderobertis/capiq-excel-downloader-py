@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>capiq_excel.workbook package &#8212; capiq_excel 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="capiq_excel.tools package" href="capiq_excel.tools.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="capiq-excel-workbook-package">
+<h1>capiq_excel.workbook package<a class="headerlink" href="#capiq-excel-workbook-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-capiq_excel.workbook.commands">
+<span id="capiq-excel-workbook-commands-module"></span><h2>capiq_excel.workbook.commands module<a class="headerlink" href="#module-capiq_excel.workbook.commands" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.workbook.commands.financial_data_command">
+<code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">financial_data_command</code><span class="sig-paren">(</span><em class="sig-param">company_id</em>, <em class="sig-param">data_item</em>, <em class="sig-param">freq='Q'</em>, <em class="sig-param">num_periods=80</em>, <em class="sig-param">data_item_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#financial_data_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.financial_data_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.commands.holdings_command">
+<code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">holdings_command</code><span class="sig-paren">(</span><em class="sig-param">company_id</em>, <em class="sig-param">data_item</em>, <em class="sig-param">date_str</em>, <em class="sig-param">data_item_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#holdings_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.holdings_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.commands.id_command">
+<code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">id_command</code><span class="sig-paren">(</span><em class="sig-param">search_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#id_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.id_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.commands.name_command">
+<code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">name_command</code><span class="sig-paren">(</span><em class="sig-param">search_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#name_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.name_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.workbook.create">
+<span id="capiq-excel-workbook-create-module"></span><h2>capiq_excel.workbook.create module<a class="headerlink" href="#module-capiq_excel.workbook.create" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.workbook.create.create_all_xlsx_with_financials_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_all_xlsx_with_financials_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id_list</em>, <em class="sig-param">data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_all_xlsx_with_financials_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_all_xlsx_with_financials_commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.create.create_all_xlsx_with_holdings_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_all_xlsx_with_holdings_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id_list</em>, <em class="sig-param">date_str_list</em>, <em class="sig-param">data_items_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_all_xlsx_with_holdings_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_all_xlsx_with_holdings_commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.create.create_all_xlsx_with_id_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_all_xlsx_with_id_commands</code><span class="sig-paren">(</span><em class="sig-param">inpath</em>, <em class="sig-param">folder</em>, <em class="sig-param">num_files=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_all_xlsx_with_id_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_all_xlsx_with_id_commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.create.create_xlsx_with_financials_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_xlsx_with_financials_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id</em>, <em class="sig-param">data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_xlsx_with_financials_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_xlsx_with_financials_commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.create.create_xlsx_with_holdings_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_xlsx_with_holdings_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id</em>, <em class="sig-param">date_str</em>, <em class="sig-param">data_items_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_xlsx_with_holdings_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_xlsx_with_holdings_commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.create.excel_cols">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">excel_cols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#excel_cols"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.excel_cols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.workbook.populate">
+<span id="capiq-excel-workbook-populate-module"></span><h2>capiq_excel.workbook.populate module<a class="headerlink" href="#module-capiq_excel.workbook.populate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="capiq_excel.workbook.populate.populate_capiq_for_file">
+<code class="sig-prename descclassname">capiq_excel.workbook.populate.</code><code class="sig-name descname">populate_capiq_for_file</code><span class="sig-paren">(</span><em class="sig-param">filepath</em>, <em class="sig-param">excel</em>, <em class="sig-param">retries_remaining=3</em>, <em class="sig-param">close_workbook=False</em>, <em class="sig-param">index=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/populate.html#populate_capiq_for_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.populate.populate_capiq_for_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private function has main functionality. This is a wrapper to add retries afer com errors</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.workbook.populate.populate_capiq_ids_for_file">
+<code class="sig-prename descclassname">capiq_excel.workbook.populate.</code><code class="sig-name descname">populate_capiq_ids_for_file</code><span class="sig-paren">(</span><em class="sig-param">filepath</em>, <em class="sig-param">excel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/populate.html#populate_capiq_ids_for_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.populate.populate_capiq_ids_for_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-capiq_excel.workbook.wait">
+<span id="capiq-excel-workbook-wait-module"></span><h2>capiq_excel.workbook.wait module<a class="headerlink" href="#module-capiq_excel.workbook.wait" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-capiq_excel.workbook">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-capiq_excel.workbook" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting started with capiq_excel</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">capiq_excel</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="capiq_excel.html">capiq_excel package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="capiq_excel.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="capiq_excel.downloader.html">capiq_excel.downloader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="capiq_excel.tools.html">capiq_excel.tools package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">capiq_excel.workbook package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-capiq_excel.workbook.commands">capiq_excel.workbook.commands module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-capiq_excel.workbook.create">capiq_excel.workbook.create module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-capiq_excel.workbook.populate">capiq_excel.workbook.populate module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-capiq_excel.workbook.wait">capiq_excel.workbook.wait module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-capiq_excel.workbook">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.addin">capiq_excel.addin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.combine">capiq_excel.combine module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.exceptions">capiq_excel.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.fileops">capiq_excel.fileops module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.ids">capiq_excel.ids module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel.main">capiq_excel.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="capiq_excel.html#module-capiq_excel">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">capiq_excel</a><ul>
+  <li><a href="capiq_excel.html">capiq_excel package</a><ul>
+      <li>Previous: <a href="capiq_excel.tools.html" title="previous chapter">capiq_excel.tools package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Nick DeRobertis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/capiq_excel.workbook.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,22 @@
+capiq\_excel.tools package
+==========================
+
+Submodules
+----------
+
+capiq\_excel.tools.ext\_pandas module
+-------------------------------------
+
+.. automodule:: capiq_excel.tools.ext_pandas
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: capiq_excel.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,71 @@
+capiq\_excel package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   capiq_excel.downloader
+   capiq_excel.tools
+   capiq_excel.workbook
+
+Submodules
+----------
+
+capiq\_excel.addin module
+-------------------------
+
+.. automodule:: capiq_excel.addin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.combine module
+---------------------------
+
+.. automodule:: capiq_excel.combine
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.exceptions module
+------------------------------
+
+.. automodule:: capiq_excel.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.fileops module
+---------------------------
+
+.. automodule:: capiq_excel.fileops
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.ids module
+-----------------------
+
+.. automodule:: capiq_excel.ids
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.main module
+------------------------
+
+.. automodule:: capiq_excel.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: capiq_excel
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,46 @@
+capiq\_excel.workbook package
+=============================
+
+Submodules
+----------
+
+capiq\_excel.workbook.commands module
+-------------------------------------
+
+.. automodule:: capiq_excel.workbook.commands
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.workbook.create module
+-----------------------------------
+
+.. automodule:: capiq_excel.workbook.create
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.workbook.populate module
+-------------------------------------
+
+.. automodule:: capiq_excel.workbook.populate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+capiq\_excel.workbook.wait module
+---------------------------------
+
+.. automodule:: capiq_excel.workbook.wait
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: capiq_excel.workbook
+   :members:
+   :undoc-members:
+   :show-inheritance:

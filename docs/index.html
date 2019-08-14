@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to Quick Start Example documentation! &#8212; quickstart-example 0.1.0 documentation</title>
+    <title>Welcome to Capital IQ Python Excel Downloader Documentation! &#8212; capiq_excel 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting started with py_qs_example" href="tutorial.html" />
+    <link rel="next" title="Getting started with capiq_excel" href="tutorial.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -31,73 +31,59 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-quick-start-example-documentation">
-<h1>Welcome to Quick Start Example documentation!<a class="headerlink" href="#welcome-to-quick-start-example-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Some intro text. To get started, look here.</p>
+  <div class="section" id="welcome-to-capital-iq-python-excel-downloader-documentation">
+<h1>Welcome to Capital IQ Python Excel Downloader Documentation!<a class="headerlink" href="#welcome-to-capital-iq-python-excel-downloader-documentation" title="Permalink to this headline">¶</a></h1>
+<p>To get started, look here.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started with py_qs_example</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started with capiq_excel</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="an-overview">
 <h2>An overview<a class="headerlink" href="#an-overview" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="my-module">
-<h3>My Module<a class="headerlink" href="#my-module" title="Permalink to this headline">¶</a></h3>
-<p>Some highlighted functionality from my module.</p>
-<p>This is a simple example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">py_qs_example</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">py_qs_example</span><span class="o">.</span><span class="n">mymodule</span><span class="o">.</span><span class="n">ExampleClass</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>For usage, see <a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Getting started with capiq_excel</span></a>. The main functions are highlighted here.</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/py_qs_example.html#py_qs_example.mymodule.ExampleClass" title="py_qs_example.mymodule.ExampleClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">py_qs_example.mymodule.ExampleClass</span></code></a>(num[, klass])</p></td>
-<td><p>An example class created from the pypi-sphinx-quickstart tutorial.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_financials" title="capiq_excel.main.download_financials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capiq_excel.main.download_financials</span></code></a>(folder, …)</p></td>
+<td><p>Downloads financial data from Capital IQ given the capital IQ ids and chosen variables</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/py_qs_example.html#py_qs_example.mymodule.example_function" title="py_qs_example.mymodule.example_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">py_qs_example.mymodule.example_function</span></code></a>(…)</p></td>
-<td><p>Example for function documentation.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_all_xlsx_with_financials_commands" title="capiq_excel.workbook.create.create_all_xlsx_with_financials_commands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capiq_excel.workbook.create.create_all_xlsx_with_financials_commands</span></code></a>(…)</p></td>
+<td><p></p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="my-package">
-<h3>My Package<a class="headerlink" href="#my-package" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/py_qs_example.mypackage.html#py_qs_example.mypackage.module.ExampleClass2" title="py_qs_example.mypackage.module.ExampleClass2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">py_qs_example.mypackage.module.ExampleClass2</span></code></a>(…)</p></td>
-<td><p>An example class created from the pypi-sphinx-quickstart tutorial.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/capiq_excel.downloader.html#capiq_excel.downloader.tools.populate_all_files_in_folder" title="capiq_excel.downloader.tools.populate_all_files_in_folder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capiq_excel.downloader.tools.populate_all_files_in_folder</span></code></a>(folder)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/py_qs_example.mypackage.html#py_qs_example.mypackage.module.example_function2" title="py_qs_example.mypackage.module.example_function2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">py_qs_example.mypackage.module.example_function2</span></code></a>(…)</p></td>
-<td><p>Example for function documentation.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/capiq_excel.html#capiq_excel.combine.combine_all_capiq_xlsx" title="capiq_excel.combine.combine_all_capiq_xlsx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capiq_excel.combine.combine_all_capiq_xlsx</span></code></a>(…)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
-</div>
 <div class="section" id="api-documentation">
 <h3>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
 <p>A full list of modules</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">py_qs_example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/py_qs_example.html">py_qs_example package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/py_qs_example.html#subpackages">Subpackages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/py_qs_example.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/py_qs_example.html#module-py_qs_example.mymodule">py_qs_example.mymodule module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/py_qs_example.html#module-py_qs_example">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">capiq_excel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/capiq_excel.html">capiq_excel package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.addin">capiq_excel.addin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.combine">capiq_excel.combine module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.exceptions">capiq_excel.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.fileops">capiq_excel.fileops module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.ids">capiq_excel.ids module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel.main">capiq_excel.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/capiq_excel.html#module-capiq_excel">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -125,16 +111,16 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started with py_qs_example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started with capiq_excel</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">py_qs_example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">capiq_excel</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="tutorial.html" title="next chapter">Getting started with py_qs_example</a></li>
+      <li>Next: <a href="tutorial.html" title="next chapter">Getting started with capiq_excel</a></li>
   </ul></li>
 </ul>
 </div>
