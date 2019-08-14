@@ -5,7 +5,7 @@ import math
 import pandas as pd
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-from exceldriver.workbook.create import _get_workbook_and_worksheet
+from exceldriver.workbook.create import get_workbook_and_worksheet
 from .commands import financial_data_command, id_command, name_command, holdings_command
 
 def create_all_xlsx_with_financials_commands(folder, company_id_list, data_items_dict, **financials_kwargs):
@@ -16,7 +16,7 @@ def create_all_xlsx_with_financials_commands(folder, company_id_list, data_items
 
 
 def create_xlsx_with_financials_commands(folder, company_id, data_items_dict, **financials_kwargs):
-    wb, ws = _get_workbook_and_worksheet()
+    wb, ws = get_workbook_and_worksheet()
     _fill_with_financials_commands(ws, company_id, data_items_dict, **financials_kwargs)
 
     filepath = os.path.join(folder, f'{company_id}.xlsx')
@@ -32,7 +32,7 @@ def create_all_xlsx_with_holdings_commands(folder, company_id_list, date_str_lis
 
 
 def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_dict):
-    wb, ws = _get_workbook_and_worksheet()
+    wb, ws = get_workbook_and_worksheet()
     _fill_with_holdings_commands(ws, company_id, date_str, data_items_dict)
 
     filepath = os.path.join(folder, f'{company_id} {_date_str_to_file_format(date_str)}.xlsx')
@@ -41,7 +41,7 @@ def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_
     return os.path.abspath(filepath)
 
 def create_all_xlsx_with_id_commands(inpath, folder, num_files=100):
-    wb, ws = _get_workbook_and_worksheet()
+    wb, ws = get_workbook_and_worksheet()
 
     df = pd.read_csv(inpath)
     _fill_id_column(df)
@@ -69,7 +69,7 @@ def _save_wb_by_index_get_new_wb(index, folder, wb):
     filename = f'ids {index}.xlsx'
     filepath = os.path.join(folder, filename)
     wb.save(filepath)
-    wb, ws = _get_workbook_and_worksheet()
+    wb, ws = get_workbook_and_worksheet()
     return wb, ws
 
 def _fill_id_column(df):
