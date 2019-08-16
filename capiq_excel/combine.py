@@ -2,6 +2,7 @@ import os
 import re
 import tempfile
 import math
+import traceback
 
 import pandas as pd
 
@@ -30,7 +31,8 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
             # TODO: better error handling
             try:
                 df_of_headers, all_columns = _append_capiq_xlsx_to_csv(file, temp_outpath, df_of_headers, all_columns)
-            except Exception:
+            except Exception as e:
+                traceback.print_tb(e.__traceback__)
                 print(f'ERROR: Could not load or append {file}. Skipping.')
 
         # Now append created parts to output file
@@ -43,7 +45,8 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
             # TODO: better error handling
             try:
                 df_of_headers, all_columns = _append_df_to_csv(df_for_append, df_of_headers, outpath, all_columns)
-            except Exception:
+            except Exception as e:
+                traceback.print_tb(e.__traceback__)
                 print(f'ERROR: Could not load or append {file}. Skipping.')
 
 def _append_capiq_xlsx_to_csv(file, outpath, df_of_headers, all_columns):
