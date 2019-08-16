@@ -28,12 +28,7 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
             if i % num_files_per_part == 0:
                 file_num += 1
             temp_outpath = os.path.join(temp_dir, f'{file_num}.csv')
-            # TODO: better error handling
-            try:
-                df_of_headers, all_columns = _append_capiq_xlsx_to_csv(file, temp_outpath, df_of_headers, all_columns)
-            except Exception as e:
-                traceback.print_tb(e.__traceback__)
-                print(f'ERROR: Could not load or append {file}. Skipping.')
+            df_of_headers, all_columns = _append_capiq_xlsx_to_csv(file, temp_outpath, df_of_headers, all_columns)
 
         # Now append created parts to output file
         print('Running second pass of append. Using in part files to create output file.')
@@ -42,12 +37,7 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
         all_columns = [col for col in df_of_headers.columns]
         for file in file_tracker.file_generator():
             df_for_append = pd.read_csv(file)  # load new data
-            # TODO: better error handling
-            try:
-                df_of_headers, all_columns = _append_df_to_csv(df_for_append, df_of_headers, outpath, all_columns)
-            except Exception as e:
-                traceback.print_tb(e.__traceback__)
-                print(f'ERROR: Could not load or append {file}. Skipping.')
+            df_of_headers, all_columns = _append_df_to_csv(df_for_append, df_of_headers, outpath, all_columns)
 
 def _append_capiq_xlsx_to_csv(file, outpath, df_of_headers, all_columns):
     df_for_append = pd.read_excel(file)  # load new data
