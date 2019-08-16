@@ -20,10 +20,8 @@ For usage, see :ref:`tutorial`. The main functions are highlighted here.
 
 .. autosummary::
 
-      capiq_excel.main.download_financials
-      capiq_excel.workbook.create.create_all_xlsx_with_financials_commands
-      capiq_excel.downloader.tools.populate_all_files_in_folder
-      capiq_excel.combine.combine_all_capiq_xlsx
+      capiq_excel.main.download_data
+      capiq_excel.main.download_data_for_capiq_ids
 
 
 API Documentation
