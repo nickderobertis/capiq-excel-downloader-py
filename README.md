@@ -8,12 +8,12 @@ download Capital IQ data. It's as easy as:
 ```python
 from capiq_excel import download_data
 
-    download_data(
-        ['MSFT', 'AAPL'],  # Any id type. Ticker, name, CUSIP, ISIN, etc.
-        ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
-        freq='Q',
-        num_periods=6
-    )
+download_data(
+    ['MSFT', 'AAPL'],  # Any id type. Ticker, name, CUSIP, ISIN, etc.
+    ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
+    freq='Q',
+    num_periods=6
+)
 ```
 
 ## Links
