@@ -1,3 +1,4 @@
+from typing import Sequence
 import os
 import string
 import itertools
@@ -43,11 +44,11 @@ def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_
 
     return os.path.abspath(filepath)
 
-def create_all_xlsx_with_id_commands(inpath, folder, num_files=100):
+def create_all_xlsx_with_id_commands(ids: Sequence[str], folder, num_files=100):
     wb, ws = get_workbook_and_worksheet()
 
-    df = pd.read_csv(inpath)
-    _fill_id_column(df)
+    df = pd.DataFrame()
+    _fill_id_column(df, ids)
     _fill_capiq_id_column(df)
     _fill_capiq_name_column(df)
 
@@ -75,14 +76,11 @@ def _save_wb_by_index_get_new_wb(index, folder, wb):
     wb, ws = get_workbook_and_worksheet()
     return wb, ws
 
-def _fill_id_column(df):
+def _fill_id_column(df: pd.DataFrame, ids: Sequence[str]):
     """
     NOTE: inplace
     """
-    # Fill id variable with ISIN, then if ISIN is missing, CUSIP
-    df['ID'] = df['ISIN']
-    missing_isin_mask = (pd.isnull(df['ISIN']))
-    df.loc[missing_isin_mask, 'ID'] = df.loc[missing_isin_mask, 'CUSIP']
+    df['ID'] = ids
 
 def _fill_capiq_id_column(df):
     """

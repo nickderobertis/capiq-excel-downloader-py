@@ -1,8 +1,32 @@
+from typing import Sequence, List
 import pandas as pd
 
 from exceldriver.tools import _start_excel_with_addins_and_attach
 from processfiles.files import FileProcessTracker
 from .workbook.populate import populate_capiq_ids_for_file
+from capiq_excel.workbook.create import create_all_xlsx_with_id_commands
+
+
+def download_capiq_ids(ids: Sequence[str], outpath: str = 'capiq ids.csv', folder: str = 'in_process_ids') -> List[str]:
+    """
+    Downloads Capital IQ identifiers when passed other identifiers such as CUSIP,
+    ISIN, ticker, name, etc.
+
+    Stores in a CSV with matched names included and also returns capiq ids as a list
+
+    :param ids: identifiers such as CUSIP, ISIN, ticker, name. Can be a mixture.
+    :param folder: folder which will hold in process files
+    :param outpath: filepath to output csv, including file extension
+    :return: capiq ids
+    """
+    create_all_xlsx_with_id_commands(ids, folder, num_files=100)
+
+    populate_all_ids_in_folder(folder)
+
+    combine_all_capiq_ids_xlsx(folder, outpath)
+
+    df = pd.read_csv(outpath)
+    return df['IQID'].tolist()
 
 
 def populate_all_ids_in_folder(folder, restart=True):
