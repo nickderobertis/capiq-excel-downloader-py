@@ -31,8 +31,21 @@
           <div class="body" role="main">
             
   <h1>Source code for capiq_excel.workbook.commands</h1><div class="highlight"><pre>
-<span></span>
-<div class="viewcode-block" id="financial_data_command"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.commands.financial_data_command">[docs]</a><span class="k">def</span> <span class="nf">financial_data_command</span><span class="p">(</span><span class="n">company_id</span><span class="p">,</span> <span class="n">data_item</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">data_item_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+
+<div class="viewcode-block" id="financial_data_command"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.commands.financial_data_command">[docs]</a><span class="k">def</span> <span class="nf">financial_data_command</span><span class="p">(</span><span class="n">company_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                           <span class="n">data_item_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lower-level utility to create an Excel function from inputs</span>
+
+<span class="sd">    :param company_id: Capital IQ id, e.g. IQ21835</span>
+<span class="sd">    :param data_item: Capital IQ item, e.g. IQ_TOTAL_REV. Look them up in Data -&gt; Formula Builder in the Capital IQ</span>
+<span class="sd">        Excel plugin tab</span>
+<span class="sd">    :param freq: One character to represent frequency, Q or Y</span>
+<span class="sd">    :param num_periods: Number of periods to go back in time pulling data</span>
+<span class="sd">    :param data_item_label: Column name to use instead of data_item name</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_validate_financial_data_inputs</span><span class="p">(</span><span class="n">company_id</span><span class="p">,</span> <span class="n">data_item</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="n">num_periods</span><span class="p">,</span> <span class="n">data_item_label</span><span class="o">=</span><span class="n">data_item_label</span><span class="p">)</span>
 
     <span class="c1"># Use variable name as label if none specified</span>

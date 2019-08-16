@@ -26,7 +26,7 @@ def download_data(company_ids: List[str], data_items: Union[Dict[str, str], Sequ
     :param timeout: Time to wait for file to be populated before considering it failed
     :param run_failed: Should only be set to True on a second or later run. Will target the failed files instead
         of the main files if True is passed.
-    :param financial_command_kwargs: kwargs for financial_data_command
+    :param financial_command_kwargs: kwargs for :py:func:`.financial_data_command`
     :return:
     """
 
@@ -69,7 +69,7 @@ def download_data_for_capiq_ids(capiq_company_ids: List[str], data_items: Union[
     :param timeout: Time to wait for file to be populated before considering it failed
     :param run_failed: Should only be set to True on a second or later run. Will target the failed files instead
         of the main files if True is passed.
-    :param financial_command_kwargs: kwargs for financial_data_command
+    :param financial_command_kwargs: kwargs for :py:func:`.financial_data_command`
     :return:
     """
     if not isinstance(data_items, dict):

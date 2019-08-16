@@ -1,5 +1,18 @@
+from typing import Optional
 
-def financial_data_command(company_id, data_item, freq='Q', num_periods=80, data_item_label=None):
+def financial_data_command(company_id: str, data_item: str, freq: str='Q', num_periods: int=80,
+                           data_item_label: Optional[str]=None) -> str:
+    """
+    Lower-level utility to create an Excel function from inputs
+
+    :param company_id: Capital IQ id, e.g. IQ21835
+    :param data_item: Capital IQ item, e.g. IQ_TOTAL_REV. Look them up in Data -> Formula Builder in the Capital IQ
+        Excel plugin tab
+    :param freq: One character to represent frequency, Q or Y
+    :param num_periods: Number of periods to go back in time pulling data
+    :param data_item_label: Column name to use instead of data_item name
+    :return:
+    """
     _validate_financial_data_inputs(company_id, data_item, freq=freq, num_periods=num_periods, data_item_label=data_item_label)
 
     # Use variable name as label if none specified
