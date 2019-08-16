@@ -47,6 +47,9 @@ def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_
 def create_all_xlsx_with_id_commands(ids: Sequence[str], folder, num_files=100):
     wb, ws = get_workbook_and_worksheet()
 
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+
     df = pd.DataFrame()
     _fill_id_column(df, ids)
     _fill_capiq_id_column(df)
