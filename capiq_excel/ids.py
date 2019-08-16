@@ -19,10 +19,13 @@ def download_capiq_ids(ids: Sequence[str], outpath: str = 'capiq ids.csv', folde
     :param outpath: filepath to output csv, including file extension
     :return: capiq ids
     """
+    print('Creating XLSX files with commands to get ids')
     create_all_xlsx_with_id_commands(ids, folder, num_files=100)
 
+    print('Populating XLSX files for ids')
     populate_all_ids_in_folder(folder)
 
+    print('Combining all ids into a single CSV file')
     combine_all_capiq_ids_xlsx(folder, outpath)
 
     df = pd.read_csv(outpath)
