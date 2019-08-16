@@ -47,7 +47,7 @@ This is a simple example::
 
     from capiq_excel import download_financials
 
-    download_datastream(
+    download_financials(
         'output_folder',
         ['IQ21835', 'IQ24937'],  # Capital IQ ids
         {

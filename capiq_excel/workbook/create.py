@@ -19,6 +19,9 @@ def create_xlsx_with_financials_commands(folder, company_id, data_items_dict, **
     wb, ws = get_workbook_and_worksheet()
     _fill_with_financials_commands(ws, company_id, data_items_dict, **financials_kwargs)
 
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+
     filepath = os.path.join(folder, f'{company_id}.xlsx')
     wb.save(filepath)
 
