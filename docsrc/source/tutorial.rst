@@ -11,7 +11,9 @@ Install this package via::
     pip install capiq_excel
 
 You must also be running Windows, have Excel installed,
-and have the Capital IQ plugin for Excel installed.
+and have the Capital IQ plugin for Excel installed. For Capital IQ plugin
+install instructions, 
+`check here <https://www.capitaliq.com/help/sp-capital-iq-help/office-plug-in/excel-plug-in/excel-plug-in-version-8x/frequently-asked-questions-(faq)/where-can-i-download-the-sp-capital-iq-excel-plug-in.aspx>`_.
 
 Ensure that when you go to the S&P Capital IQ tab, that the buttons are not grayed
 out. If they are, you have to go
