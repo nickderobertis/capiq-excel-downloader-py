@@ -1,7 +1,8 @@
 from typing import List, Dict, Union, Sequence
+import os
 from capiq_excel.workbook.create import create_all_xlsx_with_financials_commands
 from capiq_excel.downloader.tools import populate_all_files_in_folder
-from capiq_excel.ids import download_capiq_ids
+from capiq_excel.ids import download_capiq_ids, _get_ids_from_csv_path
 from capiq_excel.combine import combine_all_capiq_xlsx
 
 
@@ -29,11 +30,14 @@ def download_data(company_ids: List[str], data_items: Union[Dict[str, str], Sequ
     :return:
     """
 
-    capiq_ids = download_capiq_ids(
-        company_ids,
-        outpath=ids_outpath,
-        folder=ids_folder
-    )
+    if restart or not os.path.exists(ids_outpath):
+        capiq_ids = download_capiq_ids(
+            company_ids,
+            outpath=ids_outpath,
+            folder=ids_folder
+        )
+    else:
+        capiq_ids = _get_ids_from_csv_path(ids_outpath)
 
     download_data_for_capiq_ids(
         capiq_ids,
@@ -71,13 +75,14 @@ def download_data_for_capiq_ids(capiq_company_ids: List[str], data_items: Union[
     if not isinstance(data_items, dict):
         data_items = {var_name: var_name for var_name in data_items}
 
-    print('Creating XLSX files with commands')
-    create_all_xlsx_with_financials_commands(
-        folder,
-        company_id_list=capiq_company_ids,
-        data_items_dict=data_items,
-        **financial_command_kwargs
-    )
+    if restart or not os.path.exists(folder):
+        print('Creating XLSX files with commands')
+        create_all_xlsx_with_financials_commands(
+            folder,
+            company_id_list=capiq_company_ids,
+            data_items_dict=data_items,
+            **financial_command_kwargs
+        )
 
     print('Populating XLSX files with Capital IQ data')
     populate_all_files_in_folder(

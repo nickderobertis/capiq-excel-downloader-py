@@ -28,8 +28,7 @@ def download_capiq_ids(ids: Sequence[str], outpath: str = 'capiq ids.csv', folde
     print('Combining all ids into a single CSV file')
     combine_all_capiq_ids_xlsx(folder, outpath)
 
-    df = pd.read_csv(outpath)
-    return df['IQID'].tolist()
+    return _get_ids_from_csv_path(outpath)
 
 
 def populate_all_ids_in_folder(folder, restart=True):
@@ -69,3 +68,8 @@ def _remove_useless_cols(df):
     blank_cols = [col for col in df.columns if 'blank' in col.lower()]
     useless_cols = ['ID'] + blank_cols
     df.drop(useless_cols, axis=1, inplace=True)
+
+
+def _get_ids_from_csv_path(csv_path: str) -> List[str]:
+    df = pd.read_csv(csv_path)
+    return df['IQID'].tolist()
