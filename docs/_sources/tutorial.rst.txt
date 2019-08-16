@@ -88,6 +88,15 @@ A :code:`failed` folder will be created and any XLSX that were unable
 to pull data after several retries will be moved here so that they can be
 re-run later.
 
+How do I know the Variable Names?
+==================================
+
+You can use the Capital IQ function builder to discover the names of the
+variables. On the Capital IQ tab in the Excel plugin, under the Data section,
+click Formula Builder (make sure it's not the one under the Prop Data section).
+Then next to Data Item Keyword, start searching, and you will see the
+variable names come up.
+
 Troubleshooting
 ================
 
