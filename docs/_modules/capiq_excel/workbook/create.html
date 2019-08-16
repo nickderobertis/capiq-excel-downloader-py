@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>capiq_excel.workbook.create &#8212; capiq_excel 0.1.0 documentation</title>
+    <title>capiq_excel.workbook.create &#8212; capiq_excel 0.2.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -31,14 +31,15 @@
           <div class="body" role="main">
             
   <h1>Source code for capiq_excel.workbook.create</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">openpyxl.utils.dataframe</span> <span class="k">import</span> <span class="n">dataframe_to_rows</span>
 
-<span class="kn">from</span> <span class="nn">exceldriver.workbook.create</span> <span class="k">import</span> <span class="n">_get_workbook_and_worksheet</span>
+<span class="kn">from</span> <span class="nn">exceldriver.workbook.create</span> <span class="k">import</span> <span class="n">get_workbook_and_worksheet</span>
 <span class="kn">from</span> <span class="nn">.commands</span> <span class="k">import</span> <span class="n">financial_data_command</span><span class="p">,</span> <span class="n">id_command</span><span class="p">,</span> <span class="n">name_command</span><span class="p">,</span> <span class="n">holdings_command</span>
 
 <div class="viewcode-block" id="create_all_xlsx_with_financials_commands"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_all_xlsx_with_financials_commands">[docs]</a><span class="k">def</span> <span class="nf">create_all_xlsx_with_financials_commands</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">company_id_list</span><span class="p">,</span> <span class="n">data_items_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">financials_kwargs</span><span class="p">):</span>
@@ -49,8 +50,11 @@
 
 
 <div class="viewcode-block" id="create_xlsx_with_financials_commands"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_xlsx_with_financials_commands">[docs]</a><span class="k">def</span> <span class="nf">create_xlsx_with_financials_commands</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">company_id</span><span class="p">,</span> <span class="n">data_items_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">financials_kwargs</span><span class="p">):</span>
-    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">_get_workbook_and_worksheet</span><span class="p">()</span>
+    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">get_workbook_and_worksheet</span><span class="p">()</span>
     <span class="n">_fill_with_financials_commands</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">company_id</span><span class="p">,</span> <span class="n">data_items_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">financials_kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
 
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{company_id}</span><span class="s1">.xlsx&#39;</span><span class="p">)</span>
     <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
@@ -65,7 +69,7 @@
 
 
 <div class="viewcode-block" id="create_xlsx_with_holdings_commands"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_xlsx_with_holdings_commands">[docs]</a><span class="k">def</span> <span class="nf">create_xlsx_with_holdings_commands</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">company_id</span><span class="p">,</span> <span class="n">date_str</span><span class="p">,</span> <span class="n">data_items_dict</span><span class="p">):</span>
-    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">_get_workbook_and_worksheet</span><span class="p">()</span>
+    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">get_workbook_and_worksheet</span><span class="p">()</span>
     <span class="n">_fill_with_holdings_commands</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">company_id</span><span class="p">,</span> <span class="n">date_str</span><span class="p">,</span> <span class="n">data_items_dict</span><span class="p">)</span>
 
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{company_id}</span><span class="s1"> {_date_str_to_file_format(date_str)}.xlsx&#39;</span><span class="p">)</span>
@@ -73,11 +77,14 @@
 
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="create_all_xlsx_with_id_commands"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_all_xlsx_with_id_commands">[docs]</a><span class="k">def</span> <span class="nf">create_all_xlsx_with_id_commands</span><span class="p">(</span><span class="n">inpath</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">num_files</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">_get_workbook_and_worksheet</span><span class="p">()</span>
+<div class="viewcode-block" id="create_all_xlsx_with_id_commands"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.create.create_all_xlsx_with_id_commands">[docs]</a><span class="k">def</span> <span class="nf">create_all_xlsx_with_id_commands</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">folder</span><span class="p">,</span> <span class="n">num_files</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">get_workbook_and_worksheet</span><span class="p">()</span>
 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">inpath</span><span class="p">)</span>
-    <span class="n">_fill_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">_fill_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
     <span class="n">_fill_capiq_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="n">_fill_capiq_name_column</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
@@ -102,17 +109,14 @@
     <span class="n">filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;ids </span><span class="si">{index}</span><span class="s1">.xlsx&#39;</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">_get_workbook_and_worksheet</span><span class="p">()</span>
+    <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">get_workbook_and_worksheet</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">wb</span><span class="p">,</span> <span class="n">ws</span>
 
-<span class="k">def</span> <span class="nf">_fill_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_fill_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    NOTE: inplace</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Fill id variable with ISIN, then if ISIN is missing, CUSIP</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ISIN&#39;</span><span class="p">]</span>
-    <span class="n">missing_isin_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ISIN&#39;</span><span class="p">]))</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_isin_mask</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_isin_mask</span><span class="p">,</span> <span class="s1">&#39;CUSIP&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ids</span>
 
 <span class="k">def</span> <span class="nf">_fill_capiq_id_column</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

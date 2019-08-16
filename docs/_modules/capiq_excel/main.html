@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>capiq_excel.main &#8212; capiq_excel 0.1.0 documentation</title>
+    <title>capiq_excel.main &#8212; capiq_excel 0.2.1 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -31,28 +31,72 @@
           <div class="body" role="main">
             
   <h1>Source code for capiq_excel.main</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">capiq_excel.workbook.create</span> <span class="k">import</span> <span class="p">(</span>
-    <span class="n">create_all_xlsx_with_financials_commands</span><span class="p">,</span>
-    <span class="n">create_all_xlsx_with_holdings_commands</span><span class="p">,</span>
-    <span class="n">create_all_xlsx_with_id_commands</span>
-<span class="p">)</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">capiq_excel.workbook.create</span> <span class="k">import</span> <span class="n">create_all_xlsx_with_financials_commands</span>
 <span class="kn">from</span> <span class="nn">capiq_excel.downloader.tools</span> <span class="k">import</span> <span class="n">populate_all_files_in_folder</span>
-<span class="kn">from</span> <span class="nn">capiq_excel.ids</span> <span class="k">import</span> <span class="n">populate_all_ids_in_folder</span><span class="p">,</span> <span class="n">combine_all_capiq_ids_xlsx</span>
+<span class="kn">from</span> <span class="nn">capiq_excel.ids</span> <span class="k">import</span> <span class="n">download_capiq_ids</span><span class="p">,</span> <span class="n">_get_ids_from_csv_path</span>
 <span class="kn">from</span> <span class="nn">capiq_excel.combine</span> <span class="k">import</span> <span class="n">combine_all_capiq_xlsx</span>
 
 
-<div class="viewcode-block" id="download_financials"><a class="viewcode-back" href="../../api/capiq_excel.html#capiq_excel.main.download_financials">[docs]</a><span class="k">def</span> <span class="nf">download_financials</span><span class="p">(</span><span class="n">folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">company_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">data_items</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-                        <span class="n">outpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;combined.csv&#39;</span><span class="p">,</span>
-                        <span class="n">restart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">240</span><span class="p">,</span> <span class="n">run_failed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                        <span class="o">**</span><span class="n">financial_command_kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="download_data"><a class="viewcode-back" href="../../api/capiq_excel.html#capiq_excel.main.download_data">[docs]</a><span class="k">def</span> <span class="nf">download_data</span><span class="p">(</span><span class="n">company_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">data_items</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+                  <span class="n">ids_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;in_process_ids&#39;</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;in_process_data&#39;</span><span class="p">,</span>
+                  <span class="n">data_outpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;capiq data.csv&#39;</span><span class="p">,</span> <span class="n">ids_outpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;capiq ids.csv&#39;</span><span class="p">,</span>
+                  <span class="n">restart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">240</span><span class="p">,</span> <span class="n">run_failed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                  <span class="o">**</span><span class="n">financial_command_kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Downloads financial data from Capital IQ given the capital IQ ids and chosen variables</span>
+<span class="sd">    Downloads data from Capital IQ given arbitrary ids such as name, ticker, CUSIP, ISIN, etc.</span>
 
-<span class="sd">    :param folder: Location for in-process files</span>
-<span class="sd">    :param company_ids: Capital IQ ids for companies, e.g. [&#39;IQ4564656&#39;, &#39;IQ45643215&#39;]</span>
+<span class="sd">    :param company_ids:</span>
 <span class="sd">    :param data_items: Data items to pull for companies. keys are variable names in capital iq, values are what the</span>
-<span class="sd">        names should be in the output data. e.g. {&#39;IQ_TOTAL_REVENUE&#39;: &#39;Sales&#39;}</span>
+<span class="sd">        names should be in the output data. e.g. {&#39;IQ_TOTAL_REVENUE&#39;: &#39;Sales&#39;}. If wanting to use the original names</span>
+<span class="sd">        from Capital IQ, simply a list may be passed, e.g. [&#39;IQ_TOTAL_REVENUE&#39;]</span>
+<span class="sd">    :param ids_folder: Location for in-process files for getting ids</span>
+<span class="sd">    :param data_folder: Location for in-process files for getting data</span>
+<span class="sd">    :param data_outpath: Path to csv where final data should be outputted</span>
+<span class="sd">    :param ids_outpath: Path to csv where Capital IQ ids should be outputted</span>
+<span class="sd">    :param restart: If not the first run, start over from the beginning. Set to False to start from where left off</span>
+<span class="sd">    :param timeout: Time to wait for file to be populated before considering it failed</span>
+<span class="sd">    :param run_failed: Should only be set to True on a second or later run. Will target the failed files instead</span>
+<span class="sd">        of the main files if True is passed.</span>
+<span class="sd">    :param financial_command_kwargs: kwargs for financial_data_command</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">restart</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ids_outpath</span><span class="p">):</span>
+        <span class="n">capiq_ids</span> <span class="o">=</span> <span class="n">download_capiq_ids</span><span class="p">(</span>
+            <span class="n">company_ids</span><span class="p">,</span>
+            <span class="n">outpath</span><span class="o">=</span><span class="n">ids_outpath</span><span class="p">,</span>
+            <span class="n">folder</span><span class="o">=</span><span class="n">ids_folder</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">capiq_ids</span> <span class="o">=</span> <span class="n">_get_ids_from_csv_path</span><span class="p">(</span><span class="n">ids_outpath</span><span class="p">)</span>
+
+    <span class="n">download_data_for_capiq_ids</span><span class="p">(</span>
+        <span class="n">capiq_ids</span><span class="p">,</span>
+        <span class="n">data_items</span><span class="p">,</span>
+        <span class="n">folder</span><span class="o">=</span><span class="n">data_folder</span><span class="p">,</span>
+        <span class="n">outpath</span><span class="o">=</span><span class="n">data_outpath</span><span class="p">,</span>
+        <span class="n">restart</span><span class="o">=</span><span class="n">restart</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+        <span class="n">run_failed</span><span class="o">=</span><span class="n">run_failed</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">financial_command_kwargs</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="download_data_for_capiq_ids"><a class="viewcode-back" href="../../api/capiq_excel.html#capiq_excel.main.download_data_for_capiq_ids">[docs]</a><span class="k">def</span> <span class="nf">download_data_for_capiq_ids</span><span class="p">(</span><span class="n">capiq_company_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">data_items</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+                                <span class="n">folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;in_process_data&#39;</span><span class="p">,</span>
+                                <span class="n">outpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;capiq data.csv&#39;</span><span class="p">,</span>
+                                <span class="n">restart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">240</span><span class="p">,</span> <span class="n">run_failed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                <span class="o">**</span><span class="n">financial_command_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads data from Capital IQ given the capital IQ ids and chosen variables</span>
+
+<span class="sd">    :param capiq_company_ids: Capital IQ ids for companies, e.g. [&#39;IQ4564656&#39;, &#39;IQ45643215&#39;]</span>
+<span class="sd">    :param data_items: Data items to pull for companies. keys are variable names in capital iq, values are what the</span>
+<span class="sd">        names should be in the output data. e.g. {&#39;IQ_TOTAL_REVENUE&#39;: &#39;Sales&#39;}. If wanting to use the original names</span>
+<span class="sd">        from Capital IQ, simply a list may be passed, e.g. [&#39;IQ_TOTAL_REVENUE&#39;]</span>
+<span class="sd">    :param folder: Location for in-process files</span>
 <span class="sd">    :param outpath: Path to csv where final data should be outputted</span>
 <span class="sd">    :param restart: If not the first run, start over from the beginning. Set to False to start from where left off</span>
 <span class="sd">    :param timeout: Time to wait for file to be populated before considering it failed</span>
@@ -61,13 +105,17 @@
 <span class="sd">    :param financial_command_kwargs: kwargs for financial_data_command</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating XLSX files with commands&#39;</span><span class="p">)</span>
-    <span class="n">create_all_xlsx_with_financials_commands</span><span class="p">(</span>
-        <span class="n">folder</span><span class="p">,</span>
-        <span class="n">company_id_list</span><span class="o">=</span><span class="n">company_ids</span><span class="p">,</span>
-        <span class="n">data_items_dict</span><span class="o">=</span><span class="n">data_items</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">financial_command_kwargs</span>
-    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_items</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">data_items</span> <span class="o">=</span> <span class="p">{</span><span class="n">var_name</span><span class="p">:</span> <span class="n">var_name</span> <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">data_items</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">restart</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating XLSX files with commands&#39;</span><span class="p">)</span>
+        <span class="n">create_all_xlsx_with_financials_commands</span><span class="p">(</span>
+            <span class="n">folder</span><span class="p">,</span>
+            <span class="n">company_id_list</span><span class="o">=</span><span class="n">capiq_company_ids</span><span class="p">,</span>
+            <span class="n">data_items_dict</span><span class="o">=</span><span class="n">data_items</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">financial_command_kwargs</span>
+        <span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Populating XLSX files with Capital IQ data&#39;</span><span class="p">)</span>
     <span class="n">populate_all_files_in_folder</span><span class="p">(</span>

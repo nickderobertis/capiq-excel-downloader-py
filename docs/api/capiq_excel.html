@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>capiq_excel package &#8212; capiq_excel 0.1.0 documentation</title>
+    <title>capiq_excel package &#8212; capiq_excel 0.2.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -123,6 +123,29 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="capiq_excel.ids.download_capiq_ids">
+<code class="sig-prename descclassname">capiq_excel.ids.</code><code class="sig-name descname">download_capiq_ids</code><span class="sig-paren">(</span><em class="sig-param">ids</em>, <em class="sig-param">outpath='capiq ids.csv'</em>, <em class="sig-param">folder='in_process_ids'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/ids.html#download_capiq_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.ids.download_capiq_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads Capital IQ identifiers when passed other identifiers such as CUSIP,
+ISIN, ticker, name, etc.</p>
+<p>Stores in a CSV with matched names included and also returns capiq ids as a list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – identifiers such as CUSIP, ISIN, ticker, name. Can be a mixture.</p></li>
+<li><p><strong>folder</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – folder which will hold in process files</p></li>
+<li><p><strong>outpath</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – filepath to output csv, including file extension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capiq ids</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="capiq_excel.ids.populate_all_ids_in_folder">
 <code class="sig-prename descclassname">capiq_excel.ids.</code><code class="sig-name descname">populate_all_ids_in_folder</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">restart=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/ids.html#populate_all_ids_in_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.ids.populate_all_ids_in_folder" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -131,16 +154,45 @@
 <div class="section" id="module-capiq_excel.main">
 <span id="capiq-excel-main-module"></span><h2>capiq_excel.main module<a class="headerlink" href="#module-capiq_excel.main" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="capiq_excel.main.download_financials">
-<code class="sig-prename descclassname">capiq_excel.main.</code><code class="sig-name descname">download_financials</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_ids</em>, <em class="sig-param">data_items</em>, <em class="sig-param">outpath='combined.csv'</em>, <em class="sig-param">restart=True</em>, <em class="sig-param">timeout=240</em>, <em class="sig-param">run_failed=False</em>, <em class="sig-param">**financial_command_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/main.html#download_financials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.main.download_financials" title="Permalink to this definition">¶</a></dt>
-<dd><p>Downloads financial data from Capital IQ given the capital IQ ids and chosen variables</p>
+<dt id="capiq_excel.main.download_data">
+<code class="sig-prename descclassname">capiq_excel.main.</code><code class="sig-name descname">download_data</code><span class="sig-paren">(</span><em class="sig-param">company_ids</em>, <em class="sig-param">data_items</em>, <em class="sig-param">ids_folder='in_process_ids'</em>, <em class="sig-param">data_folder='in_process_data'</em>, <em class="sig-param">data_outpath='capiq data.csv'</em>, <em class="sig-param">ids_outpath='capiq ids.csv'</em>, <em class="sig-param">restart=True</em>, <em class="sig-param">timeout=240</em>, <em class="sig-param">run_failed=False</em>, <em class="sig-param">**financial_command_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/main.html#download_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.main.download_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads data from Capital IQ given arbitrary ids such as name, ticker, CUSIP, ISIN, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>company_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – </p></li>
+<li><p><strong>data_items</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Data items to pull for companies. keys are variable names in capital iq, values are what the
+names should be in the output data. e.g. {‘IQ_TOTAL_REVENUE’: ‘Sales’}. If wanting to use the original names
+from Capital IQ, simply a list may be passed, e.g. [‘IQ_TOTAL_REVENUE’]</p></li>
+<li><p><strong>ids_folder</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Location for in-process files for getting ids</p></li>
+<li><p><strong>data_folder</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Location for in-process files for getting data</p></li>
+<li><p><strong>data_outpath</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path to csv where final data should be outputted</p></li>
+<li><p><strong>ids_outpath</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path to csv where Capital IQ ids should be outputted</p></li>
+<li><p><strong>restart</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If not the first run, start over from the beginning. Set to False to start from where left off</p></li>
+<li><p><strong>timeout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Time to wait for file to be populated before considering it failed</p></li>
+<li><p><strong>run_failed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Should only be set to True on a second or later run. Will target the failed files instead
+of the main files if True is passed.</p></li>
+<li><p><strong>financial_command_kwargs</strong> – kwargs for financial_data_command</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="capiq_excel.main.download_data_for_capiq_ids">
+<code class="sig-prename descclassname">capiq_excel.main.</code><code class="sig-name descname">download_data_for_capiq_ids</code><span class="sig-paren">(</span><em class="sig-param">capiq_company_ids</em>, <em class="sig-param">data_items</em>, <em class="sig-param">folder='in_process_data'</em>, <em class="sig-param">outpath='capiq data.csv'</em>, <em class="sig-param">restart=True</em>, <em class="sig-param">timeout=240</em>, <em class="sig-param">run_failed=False</em>, <em class="sig-param">**financial_command_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/main.html#download_data_for_capiq_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.main.download_data_for_capiq_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads data from Capital IQ given the capital IQ ids and chosen variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capiq_company_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Capital IQ ids for companies, e.g. [‘IQ4564656’, ‘IQ45643215’]</p></li>
+<li><p><strong>data_items</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Data items to pull for companies. keys are variable names in capital iq, values are what the
+names should be in the output data. e.g. {‘IQ_TOTAL_REVENUE’: ‘Sales’}. If wanting to use the original names
+from Capital IQ, simply a list may be passed, e.g. [‘IQ_TOTAL_REVENUE’]</p></li>
 <li><p><strong>folder</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Location for in-process files</p></li>
-<li><p><strong>company_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Capital IQ ids for companies, e.g. [‘IQ4564656’, ‘IQ45643215’]</p></li>
-<li><p><strong>data_items</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Data items to pull for companies. keys are variable names in capital iq, values are what the
-names should be in the output data. e.g. {‘IQ_TOTAL_REVENUE’: ‘Sales’}</p></li>
 <li><p><strong>outpath</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path to csv where final data should be outputted</p></li>
 <li><p><strong>restart</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If not the first run, start over from the beginning. Set to False to start from where left off</p></li>
 <li><p><strong>timeout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Time to wait for file to be populated before considering it failed</p></li>

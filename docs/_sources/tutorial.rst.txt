@@ -22,7 +22,16 @@ close Excel and begin using :code:`capiq_excel`.
 Overview
 =========
 
-This package downloads the data in three main steps:
+Data must be downloaded from Capital IQ using Capital IQ ids. If you don't
+have Capital IQ ids, this package can also handle retrieving them.
+
+If you don't have Capital IQ ids, you'll want to use :py:func:`.download_data`
+which accepts any sort of ids such as ticker, name, CUSIP, or ISIN. If you
+already have Capital IQ ids, you'll want to use
+:py:func:`.download_data_for_capiq_ids`.
+
+This package downloads the data (and also the ids, if using
+:py:func:`.download_data`) in three main steps:
 
 1. Creates an XLSX workbook for each company containing the Excel function
 for the Capital IQ Excel plugin to download the Capital IQ data
@@ -36,25 +45,33 @@ one CSV file.
 Usage
 =========
 
-There are four main functions in the package.
-:py:func:`.download_financials` is the main function, which
-is just a wrapper to call the other three main functions which complete
-the three steps described above: :py:func:`.create_all_xlsx_with_financials_commands`,
-:py:func:`.populate_all_files_in_folder`, and :py:func:`.combine_all_capiq_xlsx`.
+There are two main functions in the package, depending on whether you
+have Capital IQ ids or some other identifier. Assuming you do not have
+Capital IQ ids,
+:py:func:`.download_data` is the main function, while if you have
+Capital IQ ids, :py:func:`.download_data_for_capiq_ids` is the main
+function.
+
+This is a simple example for when you have some arbitrary identifers::
+
+    from capiq_excel import download_data
+
+    download_data(
+        ['MSFT', 'AAPL'],  # Any id type. Ticker, name, CUSIP, ISIN, etc.
+        ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
+        freq='Q',
+        num_periods=6
+    )
 
 
-This is a simple example::
 
-    from capiq_excel import download_financials
+This is a simple example for when you have Capital IQ ids::
 
-    download_datastream(
-        'output_folder',
+    from capiq_excel import download_data_for_capiq_ids
+
+    download_data_for_capiq_ids(
         ['IQ21835', 'IQ24937'],  # Capital IQ ids
-        {
-            'IQ_TOTAL_REV': 'Sales',
-            'IQ_COST_REV': 'COGS'
-        },  # Variable names from Capital IQ, and desired names in output data
-        outpath='data.csv',
+        ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
         freq='Q',
         num_periods=6
     )
@@ -65,37 +82,43 @@ There is retry logic built into the package as Excel does not respond very
 consistently in this way, so Excel may be terminated and restarted many
 times in the process of downloading.
 
-A `failed` folder will be created and any XLSX that were unable
+A :code:`failed` folder will be created and any XLSX that were unable
 to pull data after several retries will be moved here so that they can be
 re-run later.
 
 Troubleshooting
 ================
 
-Hopefully the :py:func:`.download_financials` function works end-to-end. But
-the second step where the files populated may cause Excel to fail. There is
+Hopefully the main function works end-to-end. But
+the second step where the files are populated may cause Excel to fail. There is
 some logic in the package to keep restarting Excel, but this may eventually
 fail as well. If this happens, get your Excel working manually again (may
-require a restart or re-enabling the Eikon plugin), then you can run
-:py:func:`.populate_all_files_in_folder` while passing `restart=False` to
-continue where it left off. Repeat this as many times as needed, then at
-the end you can run :py:func:`.combine_all_capiq_xlsx`.
+require a restart or re-enabling the Capital IQ plugin), then you can run
+the same function again while passing `restart=False` to
+continue where it left off. Repeat this as many times as needed.
 
-For example::
+For example resuming with arbitrary ids::
 
-    from capiq_excel import (
-        populate_all_files_in_folder,
-        combine_all_capiq_xlsx
-    )
+    from capiq_excel import download_data
 
-    # Run as many times as needed, fixing Excel in between
-    populate_all_files_in_folder(
-        'output_folder',
+    download_data(
+        ['MSFT', 'AAPL'],  # Any id type. Ticker, name, CUSIP, ISIN, etc.
+        ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
+        freq='Q',
+        num_periods=6,
         restart=False
     )
 
-    # Once populate can actually finish, then run this
-    combine_all_capiq_xlsx(
-        'output_folder',
-        outpath='data.csv'
+
+For example resuming with Capital IQ ids::
+
+    from capiq_excel import download_data_for_capiq_ids
+
+    download_financials(
+        ['IQ21835', 'IQ24937'],  # Capital IQ ids
+        ['IQ_TOTAL_REV', 'IQ_COST_REV'], # Variable names from Capital IQ
+        freq='Q',
+        num_periods=6,
+        restart=False
     )
+
