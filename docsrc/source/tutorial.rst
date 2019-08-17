@@ -54,6 +54,16 @@ Capital IQ ids,
 Capital IQ ids, :py:func:`.download_data_for_capiq_ids` is the main
 function.
 
+For either function, you are mainly just passing the identifiers and the
+data items you want to pull, along with some arguments for frequency and
+the time span of data desired.
+
+Unfortunately, Capital IQ has a different format in the Excel function for
+financial data items and for market data items. In this version of
+:code:`capiq_excel`, you must pass the data items separately depending on
+whether they are financial data items or market data items. For more
+information, see `How do I know What Type of Data Item it is?`_.
+
 This is a simple example for when you have some arbitrary identifers::
 
     from capiq_excel import download_data
@@ -96,6 +106,33 @@ variables. On the Capital IQ tab in the Excel plugin, under the Data section,
 click Formula Builder (make sure it's not the one under the Prop Data section).
 Then next to Data Item Keyword, start searching, and you will see the
 variable names come up.
+
+How do I know What Type of Data Item it is?
+============================================
+
+Unfortunately we need to pass financial data items and market data items
+separately because Capital IQ has a different excel function format for
+each of them. When you use Formula Builder to look up the variable name
+(see `How do I know the Variable Names?`_),
+take note of which tab the variable appears in. You'll see tabs going across
+the formula builder interface. If it's under "Financial Data", then pass it
+to :paramref:`.download_data.financial_data_items`, and if it's under
+"Market Data," then pass
+it to :paramref:`.download_data.market_data_items`.
+
+
+What if I don't have any IDs?
+================================================================
+
+If you want Capital IQ to be your origin dataset, and you don't have any
+IDs to work with, you should use the screening tool in the Capital IQ
+web platform. This will allow you to set filters such as country,
+then you can pull all firms matching the filters. It will allow you to add
+data here as well, but not time-series data, only current data. Make sure
+you select "Excel Company ID" in the display columns. Then you can extract
+the IDs from the output of the screening tool, and pass them to
+:py:func:`.download_data_for_capiq_ids`.
+
 
 Troubleshooting
 ================

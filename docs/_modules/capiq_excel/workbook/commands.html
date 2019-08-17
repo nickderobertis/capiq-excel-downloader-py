@@ -4,9 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>capiq_excel.workbook.commands &#8212; capiq_excel 0.2.2 documentation</title>
+    <title>capiq_excel.workbook.commands &#8212; capiq_excel 0.3.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -32,11 +33,13 @@
             
   <h1>Source code for capiq_excel.workbook.commands</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">capiq_excel.tools.dates</span> <span class="k">import</span> <span class="n">freq_and_periods_to_begin_date_str</span><span class="p">,</span> <span class="n">today_as_str</span>
+
 
 <div class="viewcode-block" id="financial_data_command"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.commands.financial_data_command">[docs]</a><span class="k">def</span> <span class="nf">financial_data_command</span><span class="p">(</span><span class="n">company_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
                            <span class="n">data_item_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lower-level utility to create an Excel function from inputs</span>
+<span class="sd">    Lower-level utility to create an Excel function from inputs for getting financial data</span>
 
 <span class="sd">    :param company_id: Capital IQ id, e.g. IQ21835</span>
 <span class="sd">    :param data_item: Capital IQ item, e.g. IQ_TOTAL_REV. Look them up in Data -&gt; Formula Builder in the Capital IQ</span>
@@ -44,7 +47,7 @@
 <span class="sd">    :param freq: One character to represent frequency, Q or Y</span>
 <span class="sd">    :param num_periods: Number of periods to go back in time pulling data</span>
 <span class="sd">    :param data_item_label: Column name to use instead of data_item name</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: Excel command</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_validate_financial_data_inputs</span><span class="p">(</span><span class="n">company_id</span><span class="p">,</span> <span class="n">data_item</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="n">num_periods</span><span class="p">,</span> <span class="n">data_item_label</span><span class="o">=</span><span class="n">data_item_label</span><span class="p">)</span>
 
@@ -53,6 +56,33 @@
         <span class="n">data_item_label</span> <span class="o">=</span> <span class="n">data_item</span>
 
     <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;=CIQRANGE(&quot;</span><span class="si">{company_id}</span><span class="s1">&quot;, &quot;</span><span class="si">{data_item}</span><span class="s1">&quot;, IQ_F</span><span class="si">{freq}</span><span class="s1"> - </span><span class="si">{num_periods}</span><span class="s1">, , , , , , &quot;</span><span class="si">{data_item_label}</span><span class="s1">&quot;)&#39;</span></div>
+
+
+<div class="viewcode-block" id="market_data_command"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.commands.market_data_command">[docs]</a><span class="k">def</span> <span class="nf">market_data_command</span><span class="p">(</span><span class="n">company_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                        <span class="n">data_item_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lower-level utility to reate an Excel function from inputs for getting market data</span>
+
+<span class="sd">    For market data, Capital IQ is expecting begin and end date to be passed rather than relative date. This function</span>
+<span class="sd">    converts the relative date to absolute dates then creates the Excel command.</span>
+
+<span class="sd">    :param company_id: Capital IQ id, e.g. IQ21835</span>
+<span class="sd">    :param data_item: Capital IQ item, e.g. IQ_FLOAT_PERCENT. Look them up in Data -&gt; Formula Builder in the Capital IQ</span>
+<span class="sd">        Excel plugin tab</span>
+<span class="sd">    :param freq: One character to represent frequency, Q or Y</span>
+<span class="sd">    :param num_periods: Number of periods to go back in time pulling data</span>
+<span class="sd">    :param data_item_label: Column name to use instead of data_item name</span>
+<span class="sd">    :return: Excel command</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">begin_date</span> <span class="o">=</span> <span class="n">freq_and_periods_to_begin_date_str</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">)</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">today_as_str</span><span class="p">()</span>
+
+    <span class="c1"># Use variable name as label if none specified</span>
+    <span class="k">if</span> <span class="n">data_item_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_item_label</span> <span class="o">=</span> <span class="n">data_item</span>
+
+    <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;=CIQRANGE(&quot;</span><span class="si">{company_id}</span><span class="s1">&quot;, &quot;</span><span class="si">{data_item}</span><span class="s1">&quot;, &quot;</span><span class="si">{begin_date}</span><span class="s1">&quot;, &quot;</span><span class="si">{end_date}</span><span class="s1">&quot;, , , , , &quot;</span><span class="si">{data_item_label}</span><span class="s1">&quot;)&#39;</span></div>
+
 
 <div class="viewcode-block" id="holdings_command"><a class="viewcode-back" href="../../../api/capiq_excel.workbook.html#capiq_excel.workbook.commands.holdings_command">[docs]</a><span class="k">def</span> <span class="nf">holdings_command</span><span class="p">(</span><span class="n">company_id</span><span class="p">,</span> <span class="n">data_item</span><span class="p">,</span> <span class="n">date_str</span><span class="p">,</span> <span class="n">data_item_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># Use variable name as label if none specified</span>

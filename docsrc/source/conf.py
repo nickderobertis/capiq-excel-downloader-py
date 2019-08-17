@@ -44,7 +44,8 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx_autodoc_typehints',
-    'sphinxcontrib.fulltoc'
+    'sphinxcontrib.fulltoc',
+    'sphinx_paramlinks'
 ]
 
 # Options for sphinx_autodoc_typehints

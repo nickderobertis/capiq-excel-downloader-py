@@ -4,6 +4,14 @@ capiq\_excel.tools package
 Submodules
 ----------
 
+capiq\_excel.tools.dates module
+-------------------------------
+
+.. automodule:: capiq_excel.tools.dates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 capiq\_excel.tools.ext\_pandas module
 -------------------------------------
 

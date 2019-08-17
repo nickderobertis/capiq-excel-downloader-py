@@ -4,9 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>capiq_excel.workbook package &#8212; capiq_excel 0.2.2 documentation</title>
+    <title>capiq_excel.workbook package &#8212; capiq_excel 0.3.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_paramlinks.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -41,23 +42,23 @@
 <dl class="function">
 <dt id="capiq_excel.workbook.commands.financial_data_command">
 <code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">financial_data_command</code><span class="sig-paren">(</span><em class="sig-param">company_id</em>, <em class="sig-param">data_item</em>, <em class="sig-param">freq='Q'</em>, <em class="sig-param">num_periods=80</em>, <em class="sig-param">data_item_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#financial_data_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.financial_data_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lower-level utility to create an Excel function from inputs</p>
+<dd><p>Lower-level utility to create an Excel function from inputs for getting financial data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>company_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ id, e.g. IQ21835</p></li>
-<li><p><strong>data_item</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ item, e.g. IQ_TOTAL_REV. Look them up in Data -&gt; Formula Builder in the Capital IQ
+<li><p><span class="target" id="capiq_excel.workbook.commands.financial_data_command.params.company_id"></span><strong>company_id</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.financial_data_command.params.company_id">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ id, e.g. IQ21835</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.financial_data_command.params.data_item"></span><strong>data_item</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.financial_data_command.params.data_item">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ item, e.g. IQ_TOTAL_REV. Look them up in Data -&gt; Formula Builder in the Capital IQ
 Excel plugin tab</p></li>
-<li><p><strong>freq</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – One character to represent frequency, Q or Y</p></li>
-<li><p><strong>num_periods</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of periods to go back in time pulling data</p></li>
-<li><p><strong>data_item_label</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Column name to use instead of data_item name</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.financial_data_command.params.freq"></span><strong>freq</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.financial_data_command.params.freq">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – One character to represent frequency, Q or Y</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.financial_data_command.params.num_periods"></span><strong>num_periods</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.financial_data_command.params.num_periods">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of periods to go back in time pulling data</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.financial_data_command.params.data_item_label"></span><strong>data_item_label</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.financial_data_command.params.data_item_label">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Column name to use instead of data_item name</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dd class="field-odd"><p>Excel command</p>
 </dd>
 </dl>
 </dd></dl>
@@ -73,6 +74,32 @@ Excel plugin tab</p></li>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="capiq_excel.workbook.commands.market_data_command">
+<code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">market_data_command</code><span class="sig-paren">(</span><em class="sig-param">company_id</em>, <em class="sig-param">data_item</em>, <em class="sig-param">freq='Q'</em>, <em class="sig-param">num_periods=80</em>, <em class="sig-param">data_item_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#market_data_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.market_data_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower-level utility to reate an Excel function from inputs for getting market data</p>
+<p>For market data, Capital IQ is expecting begin and end date to be passed rather than relative date. This function
+converts the relative date to absolute dates then creates the Excel command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="capiq_excel.workbook.commands.market_data_command.params.company_id"></span><strong>company_id</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.market_data_command.params.company_id">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ id, e.g. IQ21835</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.market_data_command.params.data_item"></span><strong>data_item</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.market_data_command.params.data_item">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Capital IQ item, e.g. IQ_FLOAT_PERCENT. Look them up in Data -&gt; Formula Builder in the Capital IQ
+Excel plugin tab</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.market_data_command.params.freq"></span><strong>freq</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.market_data_command.params.freq">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – One character to represent frequency, Q or Y</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.market_data_command.params.num_periods"></span><strong>num_periods</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.market_data_command.params.num_periods">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of periods to go back in time pulling data</p></li>
+<li><p><span class="target" id="capiq_excel.workbook.commands.market_data_command.params.data_item_label"></span><strong>data_item_label</strong><a class="paramlink headerlink reference internal" href="#capiq_excel.workbook.commands.market_data_command.params.data_item_label">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Column name to use instead of data_item name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Excel command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="capiq_excel.workbook.commands.name_command">
 <code class="sig-prename descclassname">capiq_excel.workbook.commands.</code><code class="sig-name descname">name_command</code><span class="sig-paren">(</span><em class="sig-param">search_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/commands.html#name_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.commands.name_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -81,8 +108,8 @@ Excel plugin tab</p></li>
 <div class="section" id="module-capiq_excel.workbook.create">
 <span id="capiq-excel-workbook-create-module"></span><h2>capiq_excel.workbook.create module<a class="headerlink" href="#module-capiq_excel.workbook.create" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="capiq_excel.workbook.create.create_all_xlsx_with_financials_commands">
-<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_all_xlsx_with_financials_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id_list</em>, <em class="sig-param">data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_all_xlsx_with_financials_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_all_xlsx_with_financials_commands" title="Permalink to this definition">¶</a></dt>
+<dt id="capiq_excel.workbook.create.create_all_xlsx_with_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_all_xlsx_with_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id_list</em>, <em class="sig-param">financial_data_items_dict</em>, <em class="sig-param">market_data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_all_xlsx_with_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_all_xlsx_with_commands" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -96,8 +123,8 @@ Excel plugin tab</p></li>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="capiq_excel.workbook.create.create_xlsx_with_financials_commands">
-<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_xlsx_with_financials_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id</em>, <em class="sig-param">data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_xlsx_with_financials_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_xlsx_with_financials_commands" title="Permalink to this definition">¶</a></dt>
+<dt id="capiq_excel.workbook.create.create_xlsx_with_commands">
+<code class="sig-prename descclassname">capiq_excel.workbook.create.</code><code class="sig-name descname">create_xlsx_with_commands</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">company_id</em>, <em class="sig-param">financial_data_items_dict</em>, <em class="sig-param">market_data_items_dict</em>, <em class="sig-param">**financials_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/capiq_excel/workbook/create.html#create_xlsx_with_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#capiq_excel.workbook.create.create_xlsx_with_commands" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">

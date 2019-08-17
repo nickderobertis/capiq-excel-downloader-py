@@ -4,9 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Getting started with capiq_excel &#8212; capiq_excel 0.2.2 documentation</title>
+    <title>Getting started with capiq_excel &#8212; capiq_excel 0.3.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
@@ -75,6 +76,14 @@ Capital IQ ids,
 <a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_data" title="capiq_excel.main.download_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_data()</span></code></a> is the main function, while if you have
 Capital IQ ids, <a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_data_for_capiq_ids" title="capiq_excel.main.download_data_for_capiq_ids"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_data_for_capiq_ids()</span></code></a> is the main
 function.</p>
+<p>For either function, you are mainly just passing the identifiers and the
+data items you want to pull, along with some arguments for frequency and
+the time span of data desired.</p>
+<p>Unfortunately, Capital IQ has a different format in the Excel function for
+financial data items and for market data items. In this version of
+<code class="code docutils literal notranslate"><span class="pre">capiq_excel</span></code>, you must pass the data items separately depending on
+whether they are financial data items or market data items. For more
+information, see <a class="reference internal" href="#how-do-i-know-what-type-of-data-item-it-is">How do I know What Type of Data Item it is?</a>.</p>
 <p>This is a simple example for when you have some arbitrary identifers:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capiq_excel</span> <span class="k">import</span> <span class="n">download_data</span>
 
@@ -112,6 +121,29 @@ variables. On the Capital IQ tab in the Excel plugin, under the Data section,
 click Formula Builder (make sure it’s not the one under the Prop Data section).
 Then next to Data Item Keyword, start searching, and you will see the
 variable names come up.</p>
+</div>
+<div class="section" id="how-do-i-know-what-type-of-data-item-it-is">
+<h2>How do I know What Type of Data Item it is?<a class="headerlink" href="#how-do-i-know-what-type-of-data-item-it-is" title="Permalink to this headline">¶</a></h2>
+<p>Unfortunately we need to pass financial data items and market data items
+separately because Capital IQ has a different excel function format for
+each of them. When you use Formula Builder to look up the variable name
+(see <a class="reference internal" href="#how-do-i-know-the-variable-names">How do I know the Variable Names?</a>),
+take note of which tab the variable appears in. You’ll see tabs going across
+the formula builder interface. If it’s under “Financial Data”, then pass it
+to <a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_data.params.financial_data_items" title="capiq_excel.main.download_data"><code class="xref py py-paramref docutils literal notranslate"><span class="pre">download_data.financial_data_items</span></code></a>, and if it’s under
+“Market Data,” then pass
+it to <a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_data.params.market_data_items" title="capiq_excel.main.download_data"><code class="xref py py-paramref docutils literal notranslate"><span class="pre">download_data.market_data_items</span></code></a>.</p>
+</div>
+<div class="section" id="what-if-i-don-t-have-any-ids">
+<h2>What if I don’t have any IDs?<a class="headerlink" href="#what-if-i-don-t-have-any-ids" title="Permalink to this headline">¶</a></h2>
+<p>If you want Capital IQ to be your origin dataset, and you don’t have any
+IDs to work with, you should use the screening tool in the Capital IQ
+web platform. This will allow you to set filters such as country,
+then you can pull all firms matching the filters. It will allow you to add
+data here as well, but not time-series data, only current data. Make sure
+you select “Excel Company ID” in the display columns. Then you can extract
+the IDs from the output of the screening tool, and pass them to
+<a class="reference internal" href="api/capiq_excel.html#capiq_excel.main.download_data_for_capiq_ids" title="capiq_excel.main.download_data_for_capiq_ids"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_data_for_capiq_ids()</span></code></a>.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
@@ -163,6 +195,8 @@ continue where it left off. Repeat this as many times as needed.</p>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-know-the-variable-names">How do I know the Variable Names?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-know-what-type-of-data-item-it-is">How do I know What Type of Data Item it is?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-if-i-don-t-have-any-ids">What if I don’t have any IDs?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
