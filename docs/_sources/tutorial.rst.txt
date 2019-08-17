@@ -71,7 +71,7 @@ This is a simple example for when you have some arbitrary identifers::
     download_data(
         ['MSFT', 'AAPL'],  # Any id type. Ticker, name, CUSIP, ISIN, etc.
         financial_data_items=['IQ_TOTAL_REV', 'IQ_COST_REV'], # Financial data variable names from Capital IQ
-		market_data_items=['IQ_FLOAT_PERCENT'], # Market data variable names from Capital IQ
+        market_data_items=['IQ_FLOAT_PERCENT'], # Market data variable names from Capital IQ
         freq='Q',
         num_periods=6
     )
@@ -83,7 +83,7 @@ This is a simple example for when you have Capital IQ ids::
     download_data_for_capiq_ids(
         ['IQ21835', 'IQ24937'],  # Capital IQ ids
         financial_data_items=['IQ_TOTAL_REV', 'IQ_COST_REV'], # Financial data variable names from Capital IQ
-		market_data_items=['IQ_FLOAT_PERCENT'], # Market data variable names from Capital IQ
+        market_data_items=['IQ_FLOAT_PERCENT'], # Market data variable names from Capital IQ
         freq='Q',
         num_periods=6
     )
