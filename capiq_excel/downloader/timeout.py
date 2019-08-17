@@ -1,4 +1,6 @@
 import multiprocessing as mp
+from multiprocessing.pool import ThreadPool
+
 
 class TimeoutWrapper:
 
@@ -9,7 +11,7 @@ class TimeoutWrapper:
 
     def __call__(self,  *func_args, timeout_callback_kwargs={},  **func_kwargs):
 
-        with mp.Pool(1) as p:
+        with ThreadPool(1) as p:
             result_promise = p.apply_async(self.func, args=func_args, kwds=func_kwargs, error_callback=_raise_exception)
 
             try:
