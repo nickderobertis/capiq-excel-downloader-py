@@ -31,7 +31,7 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
             df_of_headers, all_columns = _append_capiq_xlsx_to_csv(file, temp_outpath, df_of_headers, all_columns)
 
         # Now append created parts to output file
-        print('Running second pass of append. Using in part files to create output file.')
+        print(f'Running second pass of append. Using in part files to create output file {outpath}.')
         file_tracker = FileProcessTracker(folder=temp_dir, restart=True, file_types=('csv',))
         outpath, df_of_headers = _get_outpath_and_df_of_headers(outpath)
         all_columns = [col for col in df_of_headers.columns]
