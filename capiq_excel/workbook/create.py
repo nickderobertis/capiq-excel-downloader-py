@@ -1,4 +1,4 @@
-from typing import Sequence, Dict
+from typing import Sequence, Dict, Iterable, Callable
 import os
 import string
 import itertools
@@ -126,31 +126,34 @@ def _fill_with_commands(ws, company_id: str, financial_data_items_dict: Dict[str
     except KeyError:
         freq = 'Q'
 
-    date_var, date_var_label = _get_date_var_and_label_from_freq(freq)
+    date_dict = _get_date_var_dict_from_freq(freq)
 
     column_generator = excel_cols()
 
-    # Fill dates first
-    current_column = next(column_generator)
-    ws[f'{current_column}1'] = financial_data_command(company_id, date_var, **financials_kwargs, data_item_label=date_var_label)
+    common_args = (
+        column_generator,
+        ws,
+        company_id
+    )
 
-    for item in financial_data_items_dict:
+    _fill_ws_by_data_item_dict(date_dict, financial_data_command, *common_args, **financials_kwargs)
+    _fill_ws_by_data_item_dict(financial_data_items_dict, financial_data_command, *common_args, **financials_kwargs)
+    _fill_ws_by_data_item_dict(market_data_items_dict, market_data_command, *common_args, **financials_kwargs)
+
+
+
+def _fill_ws_by_data_item_dict(data_items_dict: Dict[str, str], command_func: Callable,
+                               column_generator: Iterable, ws,
+                               company_id: str, **financials_kwargs):
+    for item in data_items_dict:
         current_column = next(column_generator)
-        ws[f'{current_column}1'] = financial_data_command(
+        ws[f'{current_column}1'] = command_func(
             company_id,
             item,
             **financials_kwargs,
-            data_item_label=financial_data_items_dict[item]
+            data_item_label=data_items_dict[item]
         )
 
-    for item in market_data_items_dict:
-        current_column = next(column_generator)
-        ws[f'{current_column}1'] = market_data_command(
-            company_id,
-            item,
-            **financials_kwargs,
-            data_item_label=market_data_items_dict[item]
-        )
 
 def _fill_with_holdings_commands(ws, company_id, date_str, data_items_dict):
     column_generator = excel_cols()
@@ -162,19 +165,22 @@ def _fill_with_holdings_commands(ws, company_id, date_str, data_items_dict):
             data_item_label=data_items_dict[item]
         )
 
-def _get_date_var_and_label_from_freq(freq):
+def _get_date_var_dict_from_freq(freq) -> Dict[str, str]:
+    date_dict = {
+        'IQ_PERIODDATE_BS': 'Date'
+    }
     if freq == 'Y':
-        date_var = (
-            'IQ_FISCAL_Y', 'Fiscal Year'
-        )
+        date_dict.update(dict(
+            IQ_FISCAL_Y='Fiscal Year'
+        ))
     elif freq == 'Q':
-        date_var = (
-            'IQ_ABS_PERIOD', 'Fiscal Quarter'
-        )
+        date_dict.update(dict(
+            IQ_ABS_PERIOD='Fiscal Quarter'
+        ))
     else:
         raise ValueError('Must pass Y or Q for freq')
 
-    return date_var
+    return date_dict
 
 def _date_str_to_file_format(date_str):
     return date_str.replace('/','-')
