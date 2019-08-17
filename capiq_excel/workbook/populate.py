@@ -1,5 +1,6 @@
 from win32com.client import constants
 from pywintypes import com_error
+import pythoncom
 import time
 import traceback, sys
 
@@ -7,11 +8,15 @@ from .wait import _wait_for_capiq_result
 from ..exceptions import WorkbookClosedException, CapitalIQInactiveException
 from exceldriver.tools import _restart_excel_with_addins_and_attach
 
+
 def populate_capiq_for_file(filepath, excel, retries_remaining=3, close_workbook=False, index=0):
     """
 
     Private function has main functionality. This is a wrapper to add retries afer com errors
     """
+
+    # Necessary to be called in each new thread or process which uses COM (communicate with Microsoft products)
+    pythoncom.CoInitialize()
 
     # Even if things are going normally, restart every 500 worksheets as there is a memory leak
     if index % 500 == 0 and retries_remaining == 3:
