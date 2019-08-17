@@ -10,6 +10,7 @@ sphinx = "*"
 sphinx-autobuild = "*"
 sphinx-autodoc-typehints = "*"
 sphinxcontrib-fulltoc = "*"
+sphinx-paramlinks = "*"
 twine = "*"
 
 [requires]
