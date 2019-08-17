@@ -1,4 +1,4 @@
-from typing import List, Dict, Union, Sequence, Tuple
+from typing import List, Dict, Union, Sequence, Optional
 import os
 from capiq_excel.workbook.create import create_all_xlsx_with_commands
 from capiq_excel.downloader.tools import populate_all_files_in_folder
@@ -6,8 +6,8 @@ from capiq_excel.ids import download_capiq_ids, _get_ids_from_csv_path
 from capiq_excel.combine import combine_all_capiq_xlsx
 
 
-def download_data(company_ids: List[str], financial_data_items: Union[Dict[str, str], Sequence[str]] = None,
-                  market_data_items: Union[Dict[str, str], Sequence[str]] = None,
+def download_data(company_ids: List[str], financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+                  market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
                   ids_folder: str = 'in_process_ids', data_folder: str = 'in_process_data',
                   data_outpath: str = 'capiq data.csv', ids_outpath: str = 'capiq ids.csv',
                   restart: bool = True, timeout: int = 240, run_failed: bool = False,
@@ -57,8 +57,8 @@ def download_data(company_ids: List[str], financial_data_items: Union[Dict[str, 
 
 
 def download_data_for_capiq_ids(capiq_company_ids: List[str],
-                                financial_data_items: Union[Dict[str, str], Sequence[str]] = None,
-                                market_data_items: Union[Dict[str, str], Sequence[str]] = None,
+                                financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+                                market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
                                 folder: str = 'in_process_data',
                                 outpath: str = 'capiq data.csv',
                                 restart: bool = True, timeout: int = 240, run_failed: bool = False,
@@ -121,6 +121,9 @@ def _get_data_items_dicts(financial_data_items: Union[Dict[str, str], Sequence[s
         elif not isinstance(data_items, dict):
             # Convert list to dict
             out_dicts.append({var_name: var_name for var_name in data_items})
+        else:
+            # Got dict already, just add to output unchanged
+            out_dicts.append(data_items)
     return out_dicts
 
 
