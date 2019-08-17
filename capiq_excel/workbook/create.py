@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Dict
 import os
 import string
 import itertools
@@ -7,18 +7,28 @@ import pandas as pd
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 from exceldriver.workbook.create import get_workbook_and_worksheet
-from .commands import financial_data_command, id_command, name_command, holdings_command
+from .commands import financial_data_command, id_command, name_command, holdings_command, market_data_command
 
-def create_all_xlsx_with_financials_commands(folder, company_id_list, data_items_dict, **financials_kwargs):
+
+def create_all_xlsx_with_commands(folder: str, company_id_list: Sequence[str],
+                                  financial_data_items_dict: Dict[str, str],
+                                  market_data_items_dict: Dict[str, str], **financials_kwargs):
     [
-        create_xlsx_with_financials_commands(folder, company_id, data_items_dict, **financials_kwargs)
+        create_xlsx_with_commands(
+            folder,
+            company_id,
+            financial_data_items_dict,
+            market_data_items_dict,
+            **financials_kwargs
+        )
         for company_id in company_id_list
     ]
 
 
-def create_xlsx_with_financials_commands(folder, company_id, data_items_dict, **financials_kwargs):
+def create_xlsx_with_commands(folder: str, company_id: str, financial_data_items_dict: Dict[str, str],
+                              market_data_items_dict: Dict[str, str], **financials_kwargs):
     wb, ws = get_workbook_and_worksheet()
-    _fill_with_financials_commands(ws, company_id, data_items_dict, **financials_kwargs)
+    _fill_with_commands(ws, company_id, financial_data_items_dict, market_data_items_dict, **financials_kwargs)
 
     if not os.path.exists(folder):
         os.makedirs(folder)
@@ -104,7 +114,8 @@ def _fill_capiq_name_column(df):
     # Blank needed because ids will populate to the right by one column
     df['IQ Name'] = ''
 
-def _fill_with_financials_commands(ws, company_id, data_items_dict, **financials_kwargs):
+def _fill_with_commands(ws, company_id: str, financial_data_items_dict: Dict[str, str],
+                        market_data_items_dict: Dict[str, str], **financials_kwargs):
     """
     Note: inplace
     """
@@ -123,9 +134,23 @@ def _fill_with_financials_commands(ws, company_id, data_items_dict, **financials
     current_column = next(column_generator)
     ws[f'{current_column}1'] = financial_data_command(company_id, date_var, **financials_kwargs, data_item_label=date_var_label)
 
-    for item in data_items_dict:
+    for item in financial_data_items_dict:
         current_column = next(column_generator)
-        ws[f'{current_column}1'] = financial_data_command(company_id, item, **financials_kwargs, data_item_label=data_items_dict[item])
+        ws[f'{current_column}1'] = financial_data_command(
+            company_id,
+            item,
+            **financials_kwargs,
+            data_item_label=financial_data_items_dict[item]
+        )
+
+    for item in market_data_items_dict:
+        current_column = next(column_generator)
+        ws[f'{current_column}1'] = market_data_command(
+            company_id,
+            item,
+            **financials_kwargs,
+            data_item_label=market_data_items_dict[item]
+        )
 
 def _fill_with_holdings_commands(ws, company_id, date_str, data_items_dict):
     column_generator = excel_cols()
