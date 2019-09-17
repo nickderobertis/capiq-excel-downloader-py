@@ -49,7 +49,7 @@ def populate_capiq_for_file(filepath, excel, retries_remaining=3, close_workbook
 def _populate_capiq_for_file(filepath, excel):
     wb = excel.Workbooks.Open(filepath)
     successful = _wait_for_capiq_result(excel)
-    _set_date_format(excel, wb, range='A1:A3000')  # column B is automatically included date
+    _set_date_format(excel, wb, cell_range='A1:A3000')  # column A is automatically included date
     _copy_paste_values(excel, wb)
     excel.ActiveWorkbook.Close(SaveChanges=True)
     return successful
@@ -58,18 +58,18 @@ def _populate_capiq_for_file(filepath, excel):
 def populate_capiq_ids_for_file(filepath, excel):
     wb = excel.Workbooks.Open(filepath)
     successful = _wait_for_capiq_result(excel)
-    _copy_paste_values(excel, wb, range='A1:H3000')
+    _copy_paste_values(excel, wb, cell_range='A1:H3000')
     excel.ActiveWorkbook.Close(SaveChanges=True)
     return successful
 
 
-def _copy_paste_values(excel, wb, range='A1:ZZ20000'):
+def _copy_paste_values(excel, wb, cell_range='A1:ZZ20000'):
     ws = wb.Sheets('Sheet')
-    ws.Range(range).Copy()
-    ws.Range(range.split(':')[0]).PasteSpecial(Paste=constants.xlPasteValues, Operation=constants.xlNone)
+    ws.Range(cell_range).Copy()
+    ws.Range(cell_range.split(':')[0]).PasteSpecial(Paste=constants.xlPasteValues, Operation=constants.xlNone)
     excel.CutCopyMode = False
 
 
-def _set_date_format(excel, wb, range='B:B'):
+def _set_date_format(excel, wb, cell_range='B:B'):
     ws = wb.Sheets('Sheet')
-    ws.Range(range).NumberFormat = 'mm/dd/yyyy'
+    ws.Range(cell_range).NumberFormat = 'mm/dd/yyyy'
