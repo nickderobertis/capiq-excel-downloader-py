@@ -1,14 +1,17 @@
+import sys
+import time
+import traceback
 from typing import Dict
+
+import pythoncom
 from win32com.client import constants
 from pywintypes import com_error
-import pythoncom
-import time
-import traceback, sys
 
-from .wait import _wait_for_capiq_result
-from ..exceptions import WorkbookClosedException, CapitalIQInactiveException
 from exceldriver.tools import _restart_excel_with_addins_and_attach
 from exceldriver.columns import get_n_cols_after_col
+from capiq_excel.workbook.wait import _wait_for_capiq_result
+from capiq_excel.exceptions import WorkbookClosedException, CapitalIQInactiveException
+
 
 
 def populate_capiq_for_file(filepath, excel, financial_data_items_dict: Dict[str, str],

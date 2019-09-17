@@ -3,7 +3,7 @@ import pandas as pd
 
 from exceldriver.tools import _start_excel_with_addins_and_attach
 from processfiles.files import FileProcessTracker
-from .workbook.populate import populate_capiq_ids_for_file
+from capiq_excel.workbook.populate.main import populate_capiq_ids_for_file
 from capiq_excel.workbook.create import create_all_xlsx_with_id_commands
 
 
