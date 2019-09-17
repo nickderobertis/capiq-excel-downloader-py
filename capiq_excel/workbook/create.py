@@ -7,6 +7,7 @@ import pandas as pd
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 from exceldriver.workbook.create import get_workbook_and_worksheet
+from exceldriver.columns import excel_cols
 from .commands import financial_data_command, id_command, name_command, holdings_command, market_data_command
 
 
@@ -185,8 +186,4 @@ def _get_date_var_dict_from_freq(freq) -> Dict[str, str]:
 def _date_str_to_file_format(date_str):
     return date_str.replace('/','-')
 
-def excel_cols():
-    n = 1
-    while True:
-        yield from (''.join(group) for group in itertools.product(string.ascii_uppercase, repeat=n))
-        n += 1
+
