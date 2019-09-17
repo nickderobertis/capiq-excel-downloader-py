@@ -97,9 +97,11 @@ def download_data_for_capiq_ids(capiq_company_ids: List[str],
     print('Populating XLSX files with Capital IQ data')
     populate_all_files_in_folder(
         folder,
+        financial_data_items,
+        market_data_items,
         restart=restart,
         timeout=timeout,
-        run_failed=run_failed
+        run_failed=run_failed,
     )
 
     print('Combining individual XLSX files into a single CSV file')

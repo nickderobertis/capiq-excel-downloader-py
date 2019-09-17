@@ -1,3 +1,4 @@
+from typing import Dict
 from win32com.client import constants
 from pywintypes import com_error
 import pythoncom
@@ -7,9 +8,11 @@ import traceback, sys
 from .wait import _wait_for_capiq_result
 from ..exceptions import WorkbookClosedException, CapitalIQInactiveException
 from exceldriver.tools import _restart_excel_with_addins_and_attach
+from exceldriver.columns import get_n_cols_after_col
 
 
-def populate_capiq_for_file(filepath, excel, retries_remaining=3, close_workbook=False, index=0):
+def populate_capiq_for_file(filepath, excel, financial_data_items_dict: Dict[str, str],
+                            market_data_items_dict: Dict[str, str], retries_remaining=3, close_workbook=False, index=0):
     """
 
     Private function has main functionality. This is a wrapper to add retries afer com errors
@@ -36,21 +39,31 @@ def populate_capiq_for_file(filepath, excel, retries_remaining=3, close_workbook
                 excel.ActiveWorkbook.Close(SaveChanges=False)
             time.sleep(5)
 
-        _populate_capiq_for_file(filepath, excel)
+        _populate_capiq_for_file(filepath, excel, financial_data_items_dict, market_data_items_dict)
         return excel, True
     except (com_error, WorkbookClosedException, CapitalIQInactiveException) as e:
         print(f'Error {e} populating {filepath}. Will wait 30 seconds, restart Excel, and try again.')
         traceback.print_tb(sys.exc_info()[2])
         time.sleep(30)
         excel = _restart_excel_with_addins_and_attach()
-        return populate_capiq_for_file(filepath, excel, retries_remaining=retries_remaining - 1, close_workbook=True)
+        return populate_capiq_for_file(
+            filepath,
+            excel,
+            financial_data_items_dict,
+            market_data_items_dict,
+            retries_remaining=retries_remaining - 1,
+            close_workbook=True
+        )
 
 
-def _populate_capiq_for_file(filepath, excel):
+def _populate_capiq_for_file(filepath, excel, financial_data_items_dict: Dict[str, str],
+                            market_data_items_dict: Dict[str, str]):
     wb = excel.Workbooks.Open(filepath)
     successful = _wait_for_capiq_result(excel)
-    _set_date_format(excel, wb, cell_range='A1:A3000')  # column A is automatically included date
-    _copy_paste_values(excel, wb)
+    _set_date_format(excel, wb, cell_range='A:A')  # column A is automatically included date
+    # Columns A and B are automatically included dates. C and on will be actual data
+    data_end_col = get_n_cols_after_col('B', len(financial_data_items_dict) + len(market_data_items_dict))
+    _copy_paste_values(excel, wb, cell_range=f'A:{data_end_col}')
     excel.ActiveWorkbook.Close(SaveChanges=True)
     return successful
 
@@ -58,7 +71,7 @@ def _populate_capiq_for_file(filepath, excel):
 def populate_capiq_ids_for_file(filepath, excel):
     wb = excel.Workbooks.Open(filepath)
     successful = _wait_for_capiq_result(excel)
-    _copy_paste_values(excel, wb, cell_range='A1:H3000')
+    _copy_paste_values(excel, wb, cell_range='A:Z')
     excel.ActiveWorkbook.Close(SaveChanges=True)
     return successful
 

@@ -1,3 +1,4 @@
+from typing import Dict
 import pandas as pd
 import warnings
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
@@ -10,7 +11,9 @@ from processfiles.files import FileProcessTracker
 
 
 
-def populate_all_files_in_folder(folder, restart=True, timeout=240, run_failed=False):
+def populate_all_files_in_folder(folder, financial_data_items_dict: Dict[str, str],
+                                 market_data_items_dict: Dict[str, str], restart=True, timeout=240,
+                                 run_failed=False,):
     """
 
     """
@@ -29,7 +32,14 @@ def populate_all_files_in_folder(folder, restart=True, timeout=240, run_failed=F
     with ThreadPoolExecutor(max_workers=1) as e:
         for i, file in enumerate(file_tracker.file_generator()):
 
-            excel, successful = _try_to_get_result_if_fail_restart_excel(e, i, file, excel)
+            excel, successful = _try_to_get_result_if_fail_restart_excel(
+                e,
+                i,
+                file,
+                excel,
+                financial_data_items_dict=financial_data_items_dict,
+                market_data_items_dict=market_data_items_dict
+            )
 
             if not successful:
                 move_file_to_failed_folder(file, failed_folder)
