@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+import numpy as np
 from exceldriver.columns import excel_cols
 
 
@@ -58,7 +59,15 @@ def get_series_from_ciq_financial_col(ws, col: str):
             break
         # Column A has dates
         date = ws.Range(f'A{row}').Value
-        date = str(date.date())
+        if isinstance(date, str):
+            # Handle CapIQ missing representation
+            if date == 'NA':
+                date = np.nan
+            # Allow other strs to pass through
+        else:
+            # TODO: add check for pycom datetime object type
+            # Extract date str from pycom datetime object
+            date = str(date.date())
         series[date] = value
         row += 1
     series.name = ws.Range(f'{col}1').Value
