@@ -11,6 +11,8 @@ from exceldriver.tools import _restart_excel_with_addins_and_attach
 from exceldriver.columns import get_n_cols_after_col
 from capiq_excel.workbook.wait import _wait_for_capiq_result
 from capiq_excel.exceptions import WorkbookClosedException, CapitalIQInactiveException
+from capiq_excel.workbook.populate.extract import extract_capiq_df_from_sheet
+from capiq_excel.workbook.populate.replace import write_df_to_ws_values
 
 
 
@@ -64,9 +66,7 @@ def _populate_capiq_for_file(filepath, excel, financial_data_items_dict: Dict[st
     wb = excel.Workbooks.Open(filepath)
     successful = _wait_for_capiq_result(excel)
     _set_date_format(excel, wb, cell_range='A:A')  # column A is automatically included date
-    # Columns A and B are automatically included dates. C and on will be actual data
-    data_end_col = get_n_cols_after_col('B', len(financial_data_items_dict) + len(market_data_items_dict))
-    _copy_paste_values(excel, wb, cell_range=f'A:{data_end_col}')
+    _extract_unaligned_data_align_and_replace(wb, market_data_items_dict)
     excel.ActiveWorkbook.Close(SaveChanges=True)
     return successful
 
@@ -89,3 +89,13 @@ def _copy_paste_values(excel, wb, cell_range='A1:ZZ20000'):
 def _set_date_format(excel, wb, cell_range='B:B'):
     ws = wb.Sheets('Sheet')
     ws.Range(cell_range).NumberFormat = 'mm/dd/yyyy'
+
+
+def _extract_unaligned_data_align_and_replace(wb, market_data_items_dict: Dict[str, str]):
+    """
+    Market data items become unaligned with the date axis. Extract the date from each individual formula,
+    then combine everything and replace the contents of the worksheet
+    """
+    ws = wb.Sheets('Sheet')
+    df = extract_capiq_df_from_sheet(ws, market_data_items_dict)
+    write_df_to_ws_values(df, ws)
