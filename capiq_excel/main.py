@@ -111,6 +111,14 @@ def download_data_for_capiq_ids(capiq_company_ids: List[str],
         restart=restart
     )
 
+
+    # TODO: remove after fixing bug where download_data_for_capiq_ids combine isn't working on first go
+    if not os.path.exists(outpath):
+        combine_all_capiq_xlsx(
+            folder,
+            outpath
+        )
+
 def _get_data_items_dicts(financial_data_items: Union[Dict[str, str], Sequence[str]] = None,
                           market_data_items: Union[Dict[str, str], Sequence[str]] = None
                           ) -> List[Dict[str, str]]:
