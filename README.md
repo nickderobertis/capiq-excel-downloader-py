@@ -2,7 +2,7 @@
 
 ## Overview
 
-Use this tool to drive Excel using the Capital IQ plugin to 
+Use this tool to drive Excel using the Capital IQ plugin to
 download Capital IQ data. It's as easy as:
 
 ```python
@@ -19,6 +19,4 @@ download_data(
 ## Links
 
 For more information, see the
-[documentation here.](
-https://whoopnip.github.io/capiq-excel-downloader-py/
-)
+[documentation here.](https://nickderobertis.github.io/capiq-excel-downloader-py/)

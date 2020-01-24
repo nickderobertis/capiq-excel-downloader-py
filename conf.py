@@ -13,7 +13,7 @@ PACKAGE_SHORT_DESCRIPTION = 'Capital IQ Data Downloader using Python to drive Ex
 # Long description of the package
 PACKAGE_DESCRIPTION = """
 Use this tool to drive Excel using the Capital IQ plugin to download Capital IQ data. See more at the
-repo page: https://github.com/whoopnip/capiq-excel-downloader-py
+repo page: https://github.com/nickderobertis/capiq-excel-downloader-py
 """
 
 # Author
@@ -71,6 +71,6 @@ DOCS_OTHER_MOCK_IMPORTS = [
 ]
 
 PACKAGE_URLS = {
-    'Code': 'https://github.com/whoopnip/capiq-excel-downloader-py/',
-    'Documentation': 'https://whoopnip.github.io/capiq-excel-downloader-py/'
+    'Code': 'https://github.com/nickderobertis/capiq-excel-downloader-py/',
+    'Documentation': 'https://nickderobertis.github.io/capiq-excel-downloader-py/'
 }
