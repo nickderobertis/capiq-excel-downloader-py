@@ -82,7 +82,11 @@ def populate_capiq_ids_for_file(filepath, excel):
 def _copy_paste_values(excel, wb, cell_range='A1:ZZ20000'):
     ws = wb.Sheets('Sheet')
     ws.Range(cell_range).Copy()
-    ws.Range(cell_range.split(':')[0]).PasteSpecial(Paste=constants.xlPasteValues, Operation=constants.xlNone)
+    range_begin = cell_range.split(':')[0]
+    if not range_begin[-1].isdigit():
+        # Got a full column, e.g. A instead of A1. Start from the first row
+        range_begin += '1'
+    ws.Range(range_begin).PasteSpecial(Paste=constants.xlPasteValues, Operation=constants.xlNone)
     excel.CutCopyMode = False
 
 
