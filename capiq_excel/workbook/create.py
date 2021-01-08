@@ -66,7 +66,7 @@ def create_all_xlsx_with_id_commands(ids: Sequence[str], folder, num_files=100):
     _fill_capiq_id_column(df)
     _fill_capiq_name_column(df)
 
-    rows_per_df = math.ceil(len(df)/num_files)
+    rows_per_ws = math.ceil(len(df)/num_files) + 1  # one additional row for headers
 
     count_per_wb = 0
     count_of_wb = 0
@@ -75,7 +75,7 @@ def create_all_xlsx_with_id_commands(ids: Sequence[str], folder, num_files=100):
             headers = r
         count_per_wb += 1
         ws.append(r)
-        if count_per_wb >= rows_per_df:
+        if count_per_wb >= rows_per_ws:
             count_per_wb = 0
             count_of_wb += 1
             wb, ws = _save_wb_by_index_get_new_wb(count_of_wb, folder, wb)

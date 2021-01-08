@@ -1,3 +1,4 @@
+import math
 from typing import Sequence, List
 import pandas as pd
 
@@ -20,7 +21,8 @@ def download_capiq_ids(ids: Sequence[str], outpath: str = 'capiq ids.csv', folde
     :return: capiq ids
     """
     print('Creating XLSX files with commands to get ids')
-    create_all_xlsx_with_id_commands(ids, folder, num_files=100)
+    num_files = math.ceil(len(ids) / 100)
+    create_all_xlsx_with_id_commands(ids, folder, num_files=num_files)
 
     print('Populating XLSX files for ids')
     populate_all_ids_in_folder(folder)
