@@ -59,6 +59,9 @@ target/
 
 # Editor files
 .idea
+.vscode
 
 # Temporary files
 temp
+test/generated
+Scratch
