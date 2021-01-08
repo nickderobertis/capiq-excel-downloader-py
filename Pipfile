@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pd-utils = "*"
+jupyter = "*"
 
 [packages]
 sphinx = "*"
@@ -12,6 +14,13 @@ sphinx-autodoc-typehints = "*"
 sphinxcontrib-fulltoc = "*"
 sphinx-paramlinks = "*"
 twine = "*"
+pytest = "*"
+exceldriver = "*"
+processfiles = "*"
+pypiwin32 = "*"
+openpyxl = "*"
+pandas = "*"
+xlrd = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
