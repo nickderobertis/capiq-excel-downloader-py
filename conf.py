@@ -5,7 +5,7 @@
 PACKAGE_NAME = 'capiq_excel'
 
 # Package version in the format (major, minor, release)
-PACKAGE_VERSION_TUPLE = (0, 4, 2)
+PACKAGE_VERSION_TUPLE = (0, 4, 3)
 
 # Short description of the package
 PACKAGE_SHORT_DESCRIPTION = 'Capital IQ Data Downloader using Python to drive Excel Plugin'

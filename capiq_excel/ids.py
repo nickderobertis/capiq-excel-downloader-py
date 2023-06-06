@@ -44,21 +44,17 @@ def populate_all_ids_in_folder(folder, restart=True):
 def combine_all_capiq_ids_xlsx(infolder, outpath, restart=True):
 
     df = pd.DataFrame()
+    df_list = []
 
     file_tracker = FileProcessTracker(folder=infolder, restart=restart, file_types=('xlsx',))
 
     for file in file_tracker.file_generator():
-        df = _append_capiq_xlsx_to_df(df, file)
-
+        df_list.append(pd.read_excel(file))
+    
+    df = pd.concat(df_list, sort = False)
+    
     _remove_useless_cols(df)
     df.to_csv(outpath, index=False)
-
-    return df
-
-
-def _append_capiq_xlsx_to_df(df, filepath):
-    temp_df = pd.read_excel(filepath)
-    df = df.append(temp_df)
 
     return df
 

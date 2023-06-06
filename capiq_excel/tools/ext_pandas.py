@@ -74,7 +74,7 @@ def _append_df_to_csv(df_for_append, df_of_headers, outpath, all_columns):
     df_of_headers = pd.DataFrame(columns=all_columns)
 
     # Append new data, with or without writing headers to file
-    full_df = df_of_headers.append(df_for_append)
+    full_df = pd.concat([df_of_headers, df_for_append], sort=False)
     full_df[all_columns].to_csv(outpath, mode='a', index=False, header=header, encoding='utf8')
 
     # Go back to file and update the headers
