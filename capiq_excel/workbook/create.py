@@ -5,15 +5,19 @@ import itertools
 import math
 import pandas as pd
 from openpyxl.utils.dataframe import dataframe_to_rows
+from typing import Optional, Union
 
 from exceldriver.workbook.create import get_workbook_and_worksheet
 from exceldriver.columns import excel_cols
 from .commands import financial_data_command, id_command, name_command, holdings_command, market_data_command
 
 
-def create_all_xlsx_with_commands(folder: str, company_id_list: Sequence[str],
-                                  financial_data_items_dict: Dict[str, str],
-                                  market_data_items_dict: Dict[str, str], **financials_kwargs):
+def create_all_xlsx_with_commands(
+    folder: str, company_id_list: Sequence[str],
+    financial_data_items_dict: Dict[str, str],
+    market_data_items_dict: Dict[str, str],
+    **financials_kwargs,
+) -> None:
     [
         create_xlsx_with_commands(
             folder,
@@ -27,14 +31,14 @@ def create_all_xlsx_with_commands(folder: str, company_id_list: Sequence[str],
 
 
 def create_xlsx_with_commands(folder: str, company_id: str, financial_data_items_dict: Dict[str, str],
-                              market_data_items_dict: Dict[str, str], **financials_kwargs):
+                              market_data_items_dict: Dict[str, str], **financials_kwargs) -> os.PathLike:
     wb, ws = get_workbook_and_worksheet()
     _fill_with_commands(ws, company_id, financial_data_items_dict, market_data_items_dict, **financials_kwargs)
 
     if not os.path.exists(folder):
         os.makedirs(folder)
 
-    filepath = os.path.join(folder, f'{company_id}.xlsx')
+    filepath: os.PathLike = os.path.join(folder, f'{company_id}.xlsx')
     wb.save(filepath)
 
     return os.path.abspath(filepath)
@@ -46,7 +50,7 @@ def create_all_xlsx_with_holdings_commands(folder, company_id_list, date_str_lis
     ]
 
 
-def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_dict):
+def create_xlsx_with_holdings_commands(folder, company_id: str, date_str: str, data_items_dict):
     wb, ws = get_workbook_and_worksheet()
     _fill_with_holdings_commands(ws, company_id, date_str, data_items_dict)
 
@@ -55,7 +59,7 @@ def create_xlsx_with_holdings_commands(folder, company_id, date_str, data_items_
 
     return os.path.abspath(filepath)
 
-def create_all_xlsx_with_id_commands(ids: Sequence[str], folder, num_files=100):
+def create_all_xlsx_with_id_commands(ids: Sequence[str], folder: Union[str, os.PathLike], num_files: int = 100) -> None:
     wb, ws = get_workbook_and_worksheet()
 
     if not os.path.exists(folder):
@@ -90,33 +94,36 @@ def _save_wb_by_index_get_new_wb(index, folder, wb):
     wb, ws = get_workbook_and_worksheet()
     return wb, ws
 
-def _fill_id_column(df: pd.DataFrame, ids: Sequence[str]):
+def _fill_id_column(df: pd.DataFrame, ids: Sequence[str]) -> None:
     """
     NOTE: inplace
     """
     df['ID'] = ids
 
-def _fill_capiq_id_column(df):
+def _fill_capiq_id_column(df) -> None:
     """
     NOTE: inplace
     """
-    df['Blank 1'] = df['ID'].apply(id_command)
+    df['IQID'] = df['ID'].apply(id_command)
 
-    # Blank needed because ids will populate to the right by one column
-    df['IQID'] = ''
+    # # Blank needed because ids will populate to the right by one column
+    # df['IQID'] = ''
 
 
 def _fill_capiq_name_column(df):
     """
     NOTE: inplace
     """
-    df['Blank 2'] = df['ID'].apply(name_command)
+    df['IQ Name'] = df['ID'].apply(name_command)
+    
 
-    # Blank needed because ids will populate to the right by one column
-    df['IQ Name'] = ''
-
-def _fill_with_commands(ws, company_id: str, financial_data_items_dict: Dict[str, str],
-                        market_data_items_dict: Dict[str, str], **financials_kwargs):
+def _fill_with_commands(
+    ws,
+    company_id: str,
+    financial_data_items_dict: Dict[str, str],
+    market_data_items_dict: Dict[str, str],
+    **financials_kwargs,
+):
     """
     Note: inplace
     """
@@ -143,9 +150,14 @@ def _fill_with_commands(ws, company_id: str, financial_data_items_dict: Dict[str
 
 
 
-def _fill_ws_by_data_item_dict(data_items_dict: Dict[str, str], command_func: Callable,
-                               column_generator: Iterable, ws,
-                               company_id: str, **financials_kwargs):
+def _fill_ws_by_data_item_dict(
+    data_items_dict: Dict[str, str],
+    command_func: Callable,
+    column_generator: Iterable,
+    ws,
+    company_id: str,
+    **financials_kwargs,
+):
     for item in data_items_dict:
         current_column = next(column_generator)
         ws[f'{current_column}1'] = command_func(

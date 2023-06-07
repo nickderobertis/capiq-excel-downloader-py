@@ -57,13 +57,13 @@ def holdings_command(company_id, data_item, date_str, data_item_label=None):
 
     return f'=CIQRANGE("{company_id}", "{data_item}", 1, 50000, "{date_str}", , , , "{data_item_label}")'
 
-def id_command(search_str):
-    return f'=CIQRANGEA("{search_str}","IQ_COMPANY_ID_QUICK_MATCH",1,1)'
+def id_command(search_str: str) -> str:
+    return f'=CIQ("{search_str}","IQ_COMPANY_ID")'
 
-def name_command(search_str):
-    return f'=CIQRANGEA("{search_str}","IQ_COMPANY_NAME_QUICK_MATCH",1,1)'
+def name_command(search_str: str) -> str:
+    return f'=CIQ("{search_str}","IQ_COMPANY_NAME")'
 
-def _validate_financial_data_inputs(*args, **kwargs):
+def _validate_financial_data_inputs(*args, **kwargs) -> None:
     assert kwargs['freq'] in ('Q','Y')
     assert isinstance(args[0], str)
     assert isinstance(args[1], str)
