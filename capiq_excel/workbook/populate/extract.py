@@ -4,7 +4,7 @@ import numpy as np
 from exceldriver.columns import excel_cols
 
 
-CIQ_MARKET_ITEM_FORMULA_PATTERN = re.compile(r'=CIQ\("[\w]+", "[\w]+", "([\w\/]+)"\)')
+CIQ_MARKET_ITEM_FORMULA_PATTERN = re.compile(r'=[@]*CIQ\("[\w]+", "[\w]+", "([\w\/-]+)"\)')
 
 
 def extract_capiq_df_from_sheet(ws, market_data_items):
