@@ -30,10 +30,22 @@ def create_all_xlsx_with_commands(
     ]
 
 
-def create_xlsx_with_commands(folder: str, company_id: str, financial_data_items_dict: Dict[str, str],
-                              market_data_items_dict: Dict[str, str], **financials_kwargs) -> os.PathLike:
+def create_xlsx_with_commands(
+    folder: str,
+    company_id: str,
+    financial_data_items_dict: Dict[str, str],
+    market_data_items_dict: Dict[str, str],
+    **financials_kwargs
+) -> os.PathLike:
     wb, ws = get_workbook_and_worksheet()
-    _fill_with_commands(ws, company_id, financial_data_items_dict, market_data_items_dict, **financials_kwargs)
+    
+    _fill_with_commands(
+        ws,
+        company_id,
+        financial_data_items_dict,
+        market_data_items_dict,
+        **financials_kwargs
+    )
 
     if not os.path.exists(folder):
         os.makedirs(folder)
@@ -141,7 +153,7 @@ def _fill_with_commands(
     common_args = (
         column_generator,
         ws,
-        company_id
+        company_id,
     )
 
     _fill_ws_by_data_item_dict(date_dict, financial_data_command, *common_args, **financials_kwargs)
