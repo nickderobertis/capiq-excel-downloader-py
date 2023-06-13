@@ -16,7 +16,7 @@ def write_df_to_ws_values(df: pd.DataFrame, ws, begin_col: str = 'A', begin_row:
 def _df_to_values_for_insert_into_ws(df: pd.DataFrame) -> List[List[Union[str, float, int]]]:
     temp_df = df.reset_index()
     temp_df.fillna('', inplace=True)
-    temp_df['Date'] = temp_df['Date'].apply(lambda x: x.strftime('%m/%d/%Y') if not isinstance(x, str) else x)
+    temp_df['Date'] = temp_df['Date'].apply(lambda x: x.strftime('%Y-%m-%d') if not isinstance(x, str) else x)
     values_list = temp_df.values.tolist()
     values_list.insert(0, list(temp_df.columns))
     return values_list
