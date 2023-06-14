@@ -1,4 +1,4 @@
-from typing import List, Dict, Union, Sequence, Optional
+from typing import Any, List, Dict, Union, Sequence, Optional
 import os
 from capiq_excel.workbook.create import create_all_xlsx_with_commands
 from capiq_excel.downloader.tools import populate_all_files_in_folder
@@ -6,12 +6,19 @@ from capiq_excel.ids import download_capiq_ids, _get_ids_from_csv_path
 from capiq_excel.combine import combine_all_capiq_xlsx
 
 
-def download_data(company_ids: List[str], financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
-                  market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
-                  ids_folder: str = 'in_process_ids', data_folder: str = 'in_process_data',
-                  data_outpath: str = 'capiq data.csv', ids_outpath: str = 'capiq ids.csv',
-                  restart: bool = True, timeout: int = 240, run_failed: bool = False,
-                  **financial_command_kwargs):
+def download_data(
+    company_ids: List[str],
+    financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+    market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+    ids_folder: str = 'in_process_ids',
+    data_folder: str = 'in_process_data',
+    data_outpath: str = 'capiq data.csv',
+    ids_outpath: str = 'capiq ids.csv',
+    restart: bool = True,
+    timeout: int = 240,
+    run_failed: bool = False,
+    **financial_command_kwargs,
+    ):
     """
     Downloads data from Capital IQ given arbitrary ids such as name, ticker, CUSIP, ISIN, etc.
 
@@ -56,13 +63,17 @@ def download_data(company_ids: List[str], financial_data_items: Optional[Union[D
     )
 
 
-def download_data_for_capiq_ids(capiq_company_ids: List[str],
-                                financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
-                                market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
-                                folder: str = 'in_process_data',
-                                outpath: str = 'capiq data.csv',
-                                restart: bool = True, timeout: int = 240, run_failed: bool = False,
-                                **financial_command_kwargs):
+def download_data_for_capiq_ids(
+    capiq_company_ids: List[str],
+    financial_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+    market_data_items: Optional[Union[Dict[str, str], Sequence[str]]] = None,
+    folder: str = 'in_process_data',
+    outpath: str = 'capiq data.csv',
+    restart: bool = True,
+    timeout: int = 240,
+    run_failed: bool = False,
+    **financial_command_kwargs,
+):
     """
     Downloads data from Capital IQ given the capital IQ ids and chosen variables
 
@@ -119,9 +130,10 @@ def download_data_for_capiq_ids(capiq_company_ids: List[str],
             outpath
         )
 
-def _get_data_items_dicts(financial_data_items: Union[Dict[str, str], Sequence[str]] = None,
-                          market_data_items: Union[Dict[str, str], Sequence[str]] = None
-                          ) -> List[Dict[str, str]]:
+def _get_data_items_dicts(
+    financial_data_items: Union[Dict[str, str], Sequence[str]] = None,
+    market_data_items: Union[Dict[str, str], Sequence[str]] = None
+) -> List[Dict[str, str]]:
     if financial_data_items is None and market_data_items is None:
         raise ValueError('must pass either financial_data_items or market_data_items')
     out_dicts = []

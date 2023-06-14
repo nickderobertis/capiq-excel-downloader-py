@@ -92,7 +92,7 @@ def _copy_paste_values(excel, wb, cell_range='A1:ZZ20000'):
 
 def _set_date_format(excel, wb, cell_range='B:B'):
     ws = wb.Sheets('Sheet')
-    ws.Range(cell_range).NumberFormat = 'mm/dd/yyyy'
+    ws.Range(cell_range).NumberFormat = 'yyyy-mm-dd'
 
 
 def _extract_unaligned_data_align_and_replace(wb, market_data_items_dict: Dict[str, str]):

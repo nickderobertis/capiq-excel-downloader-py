@@ -10,7 +10,7 @@ from capiq_excel.tools.ext_pandas import _get_outpath_and_df_of_headers, _append
 from processfiles.files import FileProcessTracker
 
 
-def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
+def combine_all_capiq_xlsx(infolder: str, outpath: str, restart: bool = True, num_parts: int = 100):
 
     file_tracker = FileProcessTracker(folder=infolder, restart=restart, file_types=('xlsx',))
     outpath, df_of_headers = _get_outpath_and_df_of_headers(outpath)
@@ -19,7 +19,7 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
     # TODO: cleanup
     # Set up appending to many files to speed up process. Then the part files will be combined at the end
     num_files_per_part = math.ceil(len(file_tracker.process_list) / num_parts)
-    file_num = 0
+    file_num: int = 0
     with tempfile.TemporaryDirectory() as temp_dir:
         print(f'Creating temporary directory {temp_dir}')
         print(f'Running first pass of append. Will create {num_parts} files to be used in the final append.')
@@ -40,7 +40,7 @@ def combine_all_capiq_xlsx(infolder, outpath, restart=True, num_parts=100):
             df_of_headers, all_columns = _append_df_to_csv(df_for_append, df_of_headers, outpath, all_columns)
 
 def _append_capiq_xlsx_to_csv(file, outpath, df_of_headers, all_columns):
-    df_for_append = pd.read_excel(file)  # load new data
+    df_for_append: pd.DataFrame = pd.read_excel(file)  # load new data
     if _filepath_has_date(file):
         id_, date = _capiq_filepath_to_iq_id_and_date(file)
         df_for_append['CQID'] = id_
